@@ -1,7 +1,7 @@
-const usersRepo = [];
+const tasksRepo = [];
 
 const getAll = async () => {
-  return usersRepo;
+  return tasksRepo;
 };
 
 module.exports = { getAll };

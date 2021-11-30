@@ -1,7 +1,7 @@
-const usersRepo = [];
+const boardRepo = [];
 
 const getAll = async () => {
-  return usersRepo;
+  return boardRepo;
 };
 
 module.exports = { getAll };
