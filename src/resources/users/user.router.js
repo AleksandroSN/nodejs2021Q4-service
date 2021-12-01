@@ -1,16 +1,21 @@
-const router = require("express").Router();
-const User = require("./user.model");
-const usersService = require("./user.service");
+// const router = require("express").Router();
+// const User = require("./user.model");
+// const usersService = require("./user.service");
 
-router.route("/").get(async (req, res) => {
-  const users = await usersService.getAll();
-  // map user fields to exclude secret fields like "password"
-  res.json(users.map(User.toResponse));
-});
+// router.route("/").get(async (req, res) => {
+//   const users = await usersService.getAll();
+//   // map user fields to exclude secret fields like "password"
+//   res.json(users.map(User.toResponse));
+// });
+
+const { HTTP_STATUS } = require("../../utils");
 
 const usersRoute = (app, options, done) => {
   app.get("/users", (_, res) => {
-    res.send("USERS");
+    res
+      .code(HTTP_STATUS.OK)
+      .header("Content-Type", "application/json; charset=utf-8")
+      .send([]);
   });
 
   app.get("/users/:userId", (req, res) => {
