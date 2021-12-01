@@ -1,41 +1,21 @@
-// const router = require("express").Router();
-// const User = require("./user.model");
-// const usersService = require("./user.service");
-
-// router.route("/").get(async (req, res) => {
-//   const users = await usersService.getAll();
-//   // map user fields to exclude secret fields like "password"
-//   res.json(users.map(User.toResponse));
-// });
-
-const { HTTP_STATUS } = require("../../utils");
+const {
+  getAllUsersOpts,
+  getUserOpts,
+  postOpts,
+  putOpts,
+  deleteOpts,
+} = require("./user.options");
 
 const usersRoute = (app, options, done) => {
-  app.get("/users", (_, res) => {
-    res
-      .code(HTTP_STATUS.OK)
-      .header("Content-Type", "application/json; charset=utf-8")
-      .send([]);
-  });
+  app.get("/users", getAllUsersOpts);
 
-  app.get("/users/:userId", (req, res) => {
-    const { userId } = req.params;
-    res.send(userId);
-  });
+  app.get("/users/:userId", getUserOpts);
 
-  app.post("/users", (req, res) => {
-    res.send("POST USERS");
-  });
+  app.post("/users", postOpts);
 
-  app.put("/users/:userId", (req, res) => {
-    const { userId } = req.params;
-    res.send(`PUT USERS ${userId}`);
-  });
+  app.put("/users/:userId", putOpts);
 
-  app.delete("/users/:userId", (req, res) => {
-    const { userId } = req.params;
-    res.send(`DELETE USERS ${userId}`);
-  });
+  app.delete("/users/:userId", deleteOpts);
 
   done();
 };
