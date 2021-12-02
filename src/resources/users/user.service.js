@@ -48,7 +48,7 @@ const deleteUser = (req, res) => {
   const userIdx = usersRepo.findIndex((user) => user.id === userId);
   usersRepo.splice(userIdx, 1);
 
-  res.code(HTTP_STATUS.NO_CONTENT);
+  res.code(HTTP_STATUS.NO_CONTENT).send();
 };
 
 module.exports = { getAllUsers, getUser, addUser, updateUser, deleteUser };
