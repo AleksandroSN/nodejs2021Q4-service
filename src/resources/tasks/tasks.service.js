@@ -1,6 +1,6 @@
 const { HTTP_STATUS, validateId, findId } = require("../../utils");
-const tasksRepo = require("./tasks.memory.repository");
 const Task = require("./tasks.model");
+let tasksRepo = require("./tasks.memory.repository");
 
 const getAllTasks = (req, res) => {
   const { boardId } = req.params;
@@ -60,4 +60,24 @@ const deleteTask = (req, res) => {
   res.code(HTTP_STATUS.NO_CONTENT).send();
 };
 
-module.exports = { getAllTasks, getTask, addTask, updateTask, deleteTask };
+const deleteAllTasks = (req) => {
+  const { boardId } = req.params;
+
+  tasksRepo = tasksRepo.filter((task) => task.boardId !== boardId);
+};
+
+const resetUser = (userId) => {
+  tasksRepo = tasksRepo.map((task) =>
+    task.userId === userId ? { ...task, ...{ userId: null } } : task
+  );
+};
+
+module.exports = {
+  getAllTasks,
+  getTask,
+  addTask,
+  updateTask,
+  deleteTask,
+  deleteAllTasks,
+  resetUser,
+};

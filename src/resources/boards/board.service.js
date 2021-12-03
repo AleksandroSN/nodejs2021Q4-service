@@ -1,4 +1,5 @@
 const { HTTP_STATUS, validateId, findId } = require("../../utils");
+const { deleteAllTasks } = require("../tasks");
 const boardRepo = require("./board.memory.repository");
 const Board = require("./board.model");
 
@@ -46,7 +47,7 @@ const deleteBoard = (req, res) => {
 
   const boardIdx = boardRepo.findIndex((board) => board.id === boardId);
   boardRepo.splice(boardIdx, 1);
-
+  deleteAllTasks(req);
   res.code(HTTP_STATUS.NO_CONTENT).send();
 };
 

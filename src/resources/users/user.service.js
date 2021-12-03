@@ -1,4 +1,5 @@
 const { HTTP_STATUS, validateId, findId } = require("../../utils");
+const { resetUser } = require("../tasks");
 const usersRepo = require("./user.memory.repository");
 const User = require("./user.model");
 
@@ -47,7 +48,7 @@ const deleteUser = (req, res) => {
 
   const userIdx = usersRepo.findIndex((user) => user.id === userId);
   usersRepo.splice(userIdx, 1);
-
+  resetUser(userId);
   res.code(HTTP_STATUS.NO_CONTENT).send();
 };
 
