@@ -4,7 +4,7 @@ class Task {
   constructor({
     id = uuid(),
     title = "",
-    order = 0 ,
+    order = 0,
     description = "",
     userId = "",
     boardId = "",
