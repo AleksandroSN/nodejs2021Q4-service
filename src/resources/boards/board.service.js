@@ -1,4 +1,4 @@
-const { HTTP_STATUS, validateId, findId } = require("../../utils");
+const { HTTP_STATUS, findId } = require("../../utils");
 const { deleteAllTasks } = require("../tasks");
 const boardRepo = require("./board.memory.repository");
 const Board = require("./board.model");
@@ -10,7 +10,6 @@ const getAllBoards = (_, res) => {
 const getBoard = (req, res) => {
   const { boardId } = req.params;
 
-  validateId(res, boardId);
   findId(boardRepo, res, boardId);
 
   const result = boardRepo.find((board) => board.id === boardId);
@@ -29,7 +28,6 @@ const addBoard = (req, res) => {
 const updateBoard = (req, res) => {
   const { boardId } = req.params;
 
-  validateId(res, boardId);
   findId(boardRepo, res, boardId);
 
   const { body } = req;
@@ -42,7 +40,6 @@ const updateBoard = (req, res) => {
 
 const deleteBoard = (req, res) => {
   const { boardId } = req.params;
-  validateId(res, boardId);
   findId(boardRepo, res, boardId);
 
   const boardIdx = boardRepo.findIndex((board) => board.id === boardId);

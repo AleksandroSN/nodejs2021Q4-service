@@ -1,4 +1,4 @@
-const board = {
+const task = {
   type: "object",
   properties: {
     id: { type: "string" },
@@ -26,6 +26,6 @@ const validateBody = {
 };
 
 module.exports = {
-  board,
+  task,
   validateBody,
 };

@@ -1,4 +1,4 @@
-const { HTTP_STATUS, validateId, findId } = require("../../utils");
+const { HTTP_STATUS, findId } = require("../../utils");
 const { resetUser } = require("../tasks");
 const usersRepo = require("./user.memory.repository");
 const User = require("./user.model");
@@ -10,7 +10,6 @@ const getAllUsers = (_, res) => {
 const getUser = (req, res) => {
   const { userId } = req.params;
 
-  validateId(res, userId);
   findId(usersRepo, res, userId);
 
   const result = usersRepo.find((user) => user.id === userId);
@@ -29,7 +28,6 @@ const addUser = (req, res) => {
 const updateUser = (req, res) => {
   const { userId } = req.params;
 
-  validateId(res, userId);
   findId(usersRepo, res, userId);
 
   const { body } = req;
@@ -43,7 +41,6 @@ const updateUser = (req, res) => {
 const deleteUser = (req, res) => {
   const { userId } = req.params;
 
-  validateId(res, userId);
   findId(usersRepo, res, userId);
 
   const userIdx = usersRepo.findIndex((user) => user.id === userId);

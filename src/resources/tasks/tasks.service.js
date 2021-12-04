@@ -1,23 +1,15 @@
-const { HTTP_STATUS, validateId, findId } = require("../../utils");
+const { HTTP_STATUS, findId } = require("../../utils");
 const Task = require("./tasks.model");
 let tasksRepo = require("./tasks.memory.repository");
 
 const getAllTasks = (req, res) => {
-  const { boardId } = req.params;
-
-  validateId(res, boardId);
-  // findId(tasksRepo, res, boardId);
-
   res.code(HTTP_STATUS.OK).send(tasksRepo);
 };
 
 const getTask = (req, res) => {
   const { taskId } = req.params;
 
-  // validateId(res, boardId);
-  validateId(res, taskId); // refactor to validate arr id's
-  // findId(tasksRepo, res, boardId);
-  findId(tasksRepo, res, taskId); // refactor to validate arr id's
+  findId(tasksRepo, res, taskId);
 
   const result = tasksRepo.find((task) => task.id === taskId);
 
@@ -37,7 +29,6 @@ const addTask = (req, res) => {
 const updateTask = (req, res) => {
   const { taskId } = req.params;
 
-  validateId(res, taskId);
   findId(tasksRepo, res, taskId);
 
   const { body } = req;
@@ -51,7 +42,6 @@ const updateTask = (req, res) => {
 const deleteTask = (req, res) => {
   const { taskId } = req.params;
 
-  validateId(res, taskId);
   findId(tasksRepo, res, taskId);
 
   const taskIdx = tasksRepo.findIndex((task) => task.id === taskId);

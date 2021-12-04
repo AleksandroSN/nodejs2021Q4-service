@@ -5,14 +5,14 @@ const {
   updateTask,
   deleteTask,
 } = require("./tasks.service");
-const { board, validateBody } = require("./task.helper");
+const { task, validateBody } = require("./task.helper");
 
 const getAllTasksOpts = {
   schema: {
     response: {
       200: {
         type: "array",
-        items: board,
+        items: task,
       },
     },
   },
@@ -22,7 +22,7 @@ const getAllTasksOpts = {
 const getTaskOpts = {
   schema: {
     response: {
-      200: board,
+      200: task,
     },
   },
   handler: getTask,
@@ -32,7 +32,7 @@ const postOpts = {
   schema: {
     body: validateBody,
     response: {
-      201: board,
+      201: task,
     },
   },
   handler: addTask,
@@ -42,7 +42,7 @@ const putOpts = {
   schema: {
     body: validateBody,
     response: {
-      200: board,
+      200: task,
     },
   },
   handler: updateTask,
