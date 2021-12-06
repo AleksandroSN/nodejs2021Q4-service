@@ -1,13 +1,5 @@
-// const { HTTP_STATUS } = require("./constants");
-import { HTTP_STATUS } from "./constants";
-const validateId = require("./validateId");
-const findId = require("./findId");
+import { HttpStatus } from "./constants";
+import { validateId } from "./validateId";
+import { findId } from "./findId";
 
-export {
-  HTTP_STATUS
-}
-module.exports = {
-  HTTP_STATUS,
-  validateId,
-  findId,
-};
+export { HttpStatus, validateId, findId };

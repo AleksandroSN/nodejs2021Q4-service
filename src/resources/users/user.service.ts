@@ -49,4 +49,10 @@ const deleteUser = (req, res) => {
   res.code(HTTP_STATUS.NO_CONTENT).send();
 };
 
-module.exports = { getAllUsers, getUser, addUser, updateUser, deleteUser };
+module.exports = {
+  getAllUsers,
+  getUser,
+  addUser,
+  updateUser,
+  deleteUser,
+};

@@ -1,15 +1,22 @@
-const app = require("fastify")({ logger: true });
-const swagger = require("fastify-swagger");
+import fastify from "fastify";
+import swagger from "fastify-swagger";
+import { PORT_ENV } from "./common";
+import { validateId } from "./utils";
 
 const { usersRouter } = require("./resources/users");
 const { boardsRouter } = require("./resources/boards");
 const { tasksRouter } = require("./resources/tasks");
-const { PORT_ENV } = require("./common");
-const { validateId } = require("./utils");
 
 const PORT = PORT_ENV || 9999;
 
-app.addHook("onRequest", (req, res, done) => {
+const app = fastify();
+
+interface RequestParams {
+  [key: string]: string;
+}
+
+app.addHook<{ Params: RequestParams }>("onRequest", (req, res, done) => {
+  const { params } = req;
   const wrongPath = req.params["*"];
   const paramValues = Object.values(req.params);
   if (wrongPath === undefined && paramValues.length > 0) {

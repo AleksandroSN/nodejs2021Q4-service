@@ -1,6 +1,15 @@
-const { v4: uuid } = require("uuid");
+import { v4 as uuid } from "uuid";
+import type { dataModels } from "../../types";
 
-class User {
+export class User implements dataModels.UserModel {
+  id: string;
+
+  name: string;
+
+  login: string;
+
+  password: string;
+
   constructor({
     id = uuid(),
     name = "USER",
@@ -13,5 +22,3 @@ class User {
     this.password = password;
   }
 }
-
-module.exports = User;

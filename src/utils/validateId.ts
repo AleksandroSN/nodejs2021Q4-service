@@ -1,14 +1,20 @@
-const { validate: uuidValidate } = require("uuid");
-const { HTTP_STATUS } = require("./constants");
+import type { FastifyReply } from "fastify";
+import { validate as uuidValidate } from "uuid";
+import { HttpStatus } from "./constants";
 
-const validateId = (res, ids) => {
+/**
+ *
+ * @param res - fastify reply
+ * @param ids - array strings
+ * @returns function return void
+ */
+
+export const validateId = (res: FastifyReply, ids: string[]): void => {
   if (!Array.isArray(ids)) return;
   const isValidIds = ids.map((id) => uuidValidate(id));
   isValidIds.forEach((id) => {
     if (id === false) {
-      res.code(HTTP_STATUS.BAD_REQUEST).send("wrong uuid format");
+      res.code(HttpStatus.BAD_REQUEST).send("wrong uuid format");
     }
   });
 };
-
-module.exports = validateId;

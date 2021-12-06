@@ -1,3 +1,3 @@
-const usersRepo = [];
+import type { dataModels } from "../../types";
 
-module.exports = usersRepo;
+export const usersRepo: dataModels.UserModel[] = [];

@@ -48,4 +48,10 @@ const deleteBoard = (req, res) => {
   res.code(HTTP_STATUS.NO_CONTENT).send();
 };
 
-module.exports = { getAllBoards, getBoard, addBoard, updateBoard, deleteBoard };
+module.exports = {
+  getAllBoards,
+  getBoard,
+  addBoard,
+  updateBoard,
+  deleteBoard,
+};

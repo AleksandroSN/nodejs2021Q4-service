@@ -1,15 +1,15 @@
-const {
+import {
   PORT_ENV,
   NODE_ENV,
   MONGO_CONNECTION_STRING,
-  AUTH_MODE,
   JWT_SECRET_KEY,
-} = require("./config");
+  AUTH_MODE,
+} from "./config";
 
-module.exports = {
+export {
   PORT_ENV,
   NODE_ENV,
-  MONGO_CONNECTION_STRING,
-  AUTH_MODE,
   JWT_SECRET_KEY,
+  AUTH_MODE,
+  MONGO_CONNECTION_STRING,
 };

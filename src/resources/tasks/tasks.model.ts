@@ -1,6 +1,21 @@
-const { v4: uuid } = require("uuid");
+import { v4 as uuid } from "uuid";
+import type { dataModels } from "../../types";
 
-class Task {
+export class Task implements dataModels.TaskModel {
+  id: string;
+
+  title: string;
+
+  order: number;
+
+  description: string;
+
+  userId: string;
+
+  boardId: string;
+
+  columnId: string;
+
   constructor({
     id = uuid(),
     title = "",
@@ -19,5 +34,3 @@ class Task {
     this.columnId = columnId;
   }
 }
-
-module.exports = Task;
