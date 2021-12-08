@@ -2,7 +2,7 @@ import type { FastifyRequest, FastifyReply } from "fastify";
 import type { dataModels, RequestParams } from "../../types";
 import { HttpStatus, findId } from "../../utils";
 import { boardRepo } from "./board.memory.repository";
-// const { deleteAllTasks } = require("../tasks");
+import { deleteAllTasks } from "../tasks";
 
 /**
  * async response from db with all boards
@@ -73,7 +73,7 @@ export const deleteBoard = async (req: FastifyRequest, res: FastifyReply) => {
   const { boardId } = req.params as RequestParams;
   findId(boardRepo.boards, res, boardId);
   await boardRepo.deleteBoard(boardId);
-  // deleteAllTasks(req);
+  await deleteAllTasks(req);
 
   await res.code(HttpStatus.NO_CONTENT).send();
 };

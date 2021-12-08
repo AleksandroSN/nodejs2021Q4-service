@@ -1,12 +1,29 @@
-const {
+import type {
+  FastifyInstance,
+  FastifyServerOptions,
+  HookHandlerDoneFunction,
+} from "fastify";
+import {
   getAllTasksOpts,
   getTaskOpts,
   putOpts,
   postOpts,
   deleteOpts,
-} = require("./tasks.options");
+} from "./tasks.options";
 
-const tasksRoute = (app, options, done) => {
+/**
+ * middleware routes for tasks
+ * @param app - Fastify server instance
+ * @param _ - Fastify Server options, unuse
+ * @param done - callback done function
+ * @returns void
+ */
+
+export const tasksRouter = (
+  app: FastifyInstance,
+  _: FastifyServerOptions,
+  done: HookHandlerDoneFunction
+) => {
   app.get("/boards/:boardId/tasks", getAllTasksOpts);
 
   app.get("/boards/:boardId/tasks/:taskId", getTaskOpts);
@@ -19,5 +36,3 @@ const tasksRoute = (app, options, done) => {
 
   done();
 };
-
-module.exports = tasksRoute;

@@ -4,8 +4,8 @@ import { PORT as PORT_ENV } from "./common";
 import { validateId } from "./utils";
 import { usersRoute } from "./resources/users";
 import { boardsRouter } from "./resources/boards";
+import { tasksRouter } from "./resources/tasks";
 import type { RequestParams } from "./types/requestTypes";
-// const { tasksRouter } = require("./resources/tasks");
 
 export const PORT = PORT_ENV || 9999;
 
@@ -40,4 +40,4 @@ app.register(swagger, {
 
 app.register(usersRoute);
 app.register(boardsRouter);
-// app.register(tasksRouter);
+app.register(tasksRouter);

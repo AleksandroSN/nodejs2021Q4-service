@@ -1,8 +1,4 @@
-const tasksRouter = require("./tasks.router");
-const { deleteAllTasks, resetUser } = require("./tasks.service");
+import { tasksRouter } from "./tasks.router";
+import { deleteAllTasks, resetUser } from "./tasks.service";
 
-module.exports = {
-  tasksRouter,
-  deleteAllTasks,
-  resetUser,
-};
+export { tasksRouter, deleteAllTasks, resetUser };

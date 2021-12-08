@@ -1,73 +1,100 @@
-const { HTTP_STATUS, findId } = require("../../utils");
-const Task = require("./tasks.model");
-let tasksRepo = require("./tasks.memory.repository");
+import type { FastifyReply, FastifyRequest } from "fastify";
+import { HttpStatus, findId } from "../../utils";
+import type { dataModels, RequestParams } from "../../types";
+import { tasksRepo } from "./tasks.memory.repository";
 
-const getAllTasks = (req, res) => {
-  res.code(HTTP_STATUS.OK).send(tasksRepo);
+/**
+ * async response from db with all task
+ * @param _ - request object , unuse
+ * @param res - Fastify response object
+ * @returns return all task in db with 200 code
+ */
+
+export const getAllTasks = async (_: FastifyRequest, res: FastifyReply) => {
+  const result = await tasksRepo.getAllTasks();
+  await res.code(HttpStatus.OK).send(result);
 };
 
-const getTask = (req, res) => {
-  const { taskId } = req.params;
+/**
+ * async response from db with task on id
+ * @param req - Fastify request object
+ * @param res - Fastify response object
+ * @returns return task on id with 200 code
+ */
 
-  findId(tasksRepo, res, taskId);
+export const getTask = async (req: FastifyRequest, res: FastifyReply) => {
+  const { taskId } = req.params as RequestParams;
+  findId(tasksRepo.tasks, res, taskId);
+  const result = await tasksRepo.getTask(taskId);
 
-  const result = tasksRepo.find((task) => task.id === taskId);
-
-  res.code(HTTP_STATUS.OK).send(result);
+  await res.code(HttpStatus.OK).send(result);
 };
 
-const addTask = (req, res) => {
-  const { boardId } = req.params;
-  const { body } = req;
-  const task = new Task(body);
-  const result = { ...task, ...{ boardId } };
-  tasksRepo.push(result);
+/**
+ * async response from db with new task
+ * @param req - Fastify request object
+ * @param res - Fastify response object
+ * @returns return new task with 201 code
+ */
 
-  res.code(HTTP_STATUS.CREATED).send(result);
+export const addTask = async (req: FastifyRequest, res: FastifyReply) => {
+  const { boardId } = req.params as RequestParams;
+  const body = req.body as dataModels.TaskModel;
+  const task = await tasksRepo.addTask(body, boardId);
+
+  await res.code(HttpStatus.CREATED).send(task);
 };
 
-const updateTask = (req, res) => {
-  const { taskId } = req.params;
+/**
+ * async response from db with updated task
+ * @param req - Fastify request object
+ * @param res - Fastify response object
+ * @returns return updated task with 200 code
+ */
 
-  findId(tasksRepo, res, taskId);
+export const updateTask = async (req: FastifyRequest, res: FastifyReply) => {
+  const { taskId } = req.params as RequestParams;
+  const body = req.body as dataModels.TaskModel;
+  findId(tasksRepo.tasks, res, taskId);
+  const taskIdx = await tasksRepo.updateTask(taskId, body);
 
-  const { body } = req;
-  const taskIdx = tasksRepo.findIndex((task) => task.id === taskId);
-  const updatedUser = { ...tasksRepo[taskIdx], ...body };
-  tasksRepo.splice(taskIdx, 1, updatedUser);
-
-  res.code(HTTP_STATUS.OK).send(updatedUser);
+  await res.code(HttpStatus.OK).send(taskIdx);
 };
 
-const deleteTask = (req, res) => {
-  const { taskId } = req.params;
+/**
+ * async response from db with void value
+ * @param req - Fastify request object
+ * @param res - Fastify response object
+ * @returns return void with 204 code
+ */
 
-  findId(tasksRepo, res, taskId);
+export const deleteTask = async (req: FastifyRequest, res: FastifyReply) => {
+  const { taskId } = req.params as RequestParams;
+  findId(tasksRepo.tasks, res, taskId);
+  await tasksRepo.deleteTask(taskId);
 
-  const taskIdx = tasksRepo.findIndex((task) => task.id === taskId);
-  tasksRepo.splice(taskIdx, 1);
-
-  res.code(HTTP_STATUS.NO_CONTENT).send();
+  res.code(HttpStatus.NO_CONTENT).send();
 };
 
-const deleteAllTasks = (req) => {
-  const { boardId } = req.params;
+/**
+ * async delete all task if board deleted
+ * @param req - Fastify request object
+ * @param res - Fastify response object
+ * @returns return void
+ */
 
-  tasksRepo = tasksRepo.filter((task) => task.boardId !== boardId);
+export const deleteAllTasks = async (req: FastifyRequest) => {
+  const { boardId } = req.params as RequestParams;
+  await tasksRepo.deleteTasksOnId(boardId);
 };
 
-const resetUser = (userId) => {
-  tasksRepo = tasksRepo.map((task) =>
-    task.userId === userId ? { ...task, ...{ userId: null } } : task
-  );
-};
+/**
+ * async update userId to 'null' if user deleted
+ * @param req - Fastify request object
+ * @param res - Fastify response object
+ * @returns return void
+ */
 
-module.exports = {
-  getAllTasks,
-  getTask,
-  addTask,
-  updateTask,
-  deleteTask,
-  deleteAllTasks,
-  resetUser,
+export const resetUser = async (userId: string) => {
+  await tasksRepo.modifyUserDataInTask(userId);
 };

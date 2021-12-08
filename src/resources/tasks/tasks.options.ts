@@ -1,13 +1,14 @@
-const {
+import type { RouteShorthandOptionsWithHandler } from "fastify";
+import {
   getAllTasks,
   getTask,
   addTask,
   updateTask,
   deleteTask,
-} = require("./tasks.service");
-const { task, validateBody } = require("./task.helper");
+} from "./tasks.service";
+import { task } from "./task.helper";
 
-const getAllTasksOpts = {
+export const getAllTasksOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       200: {
@@ -19,7 +20,7 @@ const getAllTasksOpts = {
   handler: getAllTasks,
 };
 
-const getTaskOpts = {
+export const getTaskOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       200: task,
@@ -28,9 +29,9 @@ const getTaskOpts = {
   handler: getTask,
 };
 
-const postOpts = {
+export const postOpts: RouteShorthandOptionsWithHandler = {
   schema: {
-    body: validateBody,
+    body: task,
     response: {
       201: task,
     },
@@ -38,9 +39,9 @@ const postOpts = {
   handler: addTask,
 };
 
-const putOpts = {
+export const putOpts: RouteShorthandOptionsWithHandler = {
   schema: {
-    body: validateBody,
+    body: task,
     response: {
       200: task,
     },
@@ -48,19 +49,11 @@ const putOpts = {
   handler: updateTask,
 };
 
-const deleteOpts = {
+export const deleteOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       204: {},
     },
   },
   handler: deleteTask,
-};
-
-module.exports = {
-  getAllTasksOpts,
-  getTaskOpts,
-  postOpts,
-  putOpts,
-  deleteOpts,
 };

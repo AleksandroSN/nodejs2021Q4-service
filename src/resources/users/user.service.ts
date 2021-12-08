@@ -2,7 +2,7 @@ import type { FastifyReply, FastifyRequest } from "fastify";
 import type { RequestParams, dataModels } from "../../types";
 import { HttpStatus, findId } from "../../utils";
 import { userRepo } from "./user.memory.repository";
-// const { resetUser } = require("../tasks");
+import { resetUser } from "../tasks";
 
 /**
  * async response from db with all users
@@ -74,7 +74,7 @@ export const deleteUser = async (req: FastifyRequest, res: FastifyReply) => {
   const { userId } = req.params as RequestParams;
   findId(userRepo.users, res, userId);
   await userRepo.deleteUser(userId);
-  // resetUser(userId);
+  await resetUser(userId);
 
   await res.code(HttpStatus.NO_CONTENT).send();
 };

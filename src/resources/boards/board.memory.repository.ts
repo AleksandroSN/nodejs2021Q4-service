@@ -11,8 +11,9 @@ interface BoardRepoModel {
 }
 
 /**
+ * class for work with boards array (InMemoryDB)
  * @param boards - array boards
- * @returns new board or void
+ * @returns empty boards arr
  */
 class BoardRepo implements BoardRepoModel {
   boards: dataModels.BoardModel[];
