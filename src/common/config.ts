@@ -6,7 +6,7 @@ dotenv.config({
 });
 
 const envConfig = [
-  "PORT_ENV",
+  "PORT",
   "NODE_ENV",
   "MONGO_CONNECTION_STRING",
   "JWT_SECRET_KEY",
@@ -29,7 +29,7 @@ const config = envConfig.reduce((envObj, key) => {
 /* eslint-enable no-param-reassign */
 
 export const {
-  PORT_ENV,
+  PORT,
   NODE_ENV,
   MONGO_CONNECTION_STRING,
   JWT_SECRET_KEY,

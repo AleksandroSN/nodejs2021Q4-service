@@ -1,17 +1,18 @@
-const {
+import type { RouteShorthandOptionsWithHandler } from "fastify";
+import {
+  userWithPassword,
+  userWithoutPassword,
+  validateBody,
+} from "./user.helper";
+import {
   getAllUsers,
   getUser,
   addUser,
   updateUser,
   deleteUser,
-} = require("./user.service");
-const {
-  userWithPassword,
-  userWithoutPassword,
-  validateBody,
-} = require("./user.helper");
+} from "./user.service";
 
-const getAllUsersOpts = {
+export const getAllUsersOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       200: {
@@ -23,7 +24,7 @@ const getAllUsersOpts = {
   handler: getAllUsers,
 };
 
-const getUserOpts = {
+export const getUserOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       200: userWithoutPassword,
@@ -32,7 +33,7 @@ const getUserOpts = {
   handler: getUser,
 };
 
-const postOpts = {
+export const postOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     body: validateBody,
     response: {
@@ -42,7 +43,7 @@ const postOpts = {
   handler: addUser,
 };
 
-const putOpts = {
+export const putOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     body: validateBody,
     response: {
@@ -52,19 +53,11 @@ const putOpts = {
   handler: updateUser,
 };
 
-const deleteOpts = {
+export const deleteOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       204: {},
     },
   },
   handler: deleteUser,
-};
-
-module.exports = {
-  getAllUsersOpts,
-  getUserOpts,
-  postOpts,
-  putOpts,
-  deleteOpts,
 };

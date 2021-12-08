@@ -1,4 +1,29 @@
-const userWithPassword = {
+import type { TypeString } from "../../types";
+
+type UserOptsWithPassword = {
+  id: TypeString;
+  name: TypeString;
+  login: TypeString;
+  password: TypeString;
+};
+
+type UserOptsWithoutPassword = Omit<UserOptsWithPassword, "password">;
+
+interface IUserWithPassword {
+  type: string;
+  properties: UserOptsWithPassword;
+}
+
+interface IUserWithoutPassword {
+  type: string;
+  properties: UserOptsWithoutPassword;
+}
+
+interface IValidateBody extends IUserWithPassword {
+  required: string[];
+}
+
+export const userWithPassword: IUserWithPassword = {
   type: "object",
   properties: {
     id: { type: "string" },
@@ -8,7 +33,7 @@ const userWithPassword = {
   },
 };
 
-const userWithoutPassword = {
+export const userWithoutPassword: IUserWithoutPassword = {
   type: "object",
   properties: {
     id: { type: "string" },
@@ -17,19 +42,7 @@ const userWithoutPassword = {
   },
 };
 
-const validateBody = {
-  type: "object",
-  required: ["name"],
-  properties: {
-    id: { type: "string" },
-    name: { type: "string" },
-    login: { type: "string" },
-    password: { type: "string" },
-  },
-};
-
-module.exports = {
-  userWithPassword,
-  userWithoutPassword,
-  validateBody,
+export const validateBody: IValidateBody = {
+  ...userWithPassword,
+  required: ["name", "password"],
 };

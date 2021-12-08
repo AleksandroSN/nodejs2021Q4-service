@@ -3,7 +3,7 @@ import { validate as uuidValidate } from "uuid";
 import { HttpStatus } from "./constants";
 
 /**
- *
+ * Validate id, if wrond send response with message
  * @param res - fastify reply
  * @param ids - array strings
  * @returns function return void

@@ -1,24 +1,21 @@
 import fastify from "fastify";
 import swagger from "fastify-swagger";
-import { PORT_ENV } from "./common";
+import { PORT as PORT_ENV } from "./common";
 import { validateId } from "./utils";
+import { usersRoute } from "./resources/users";
+import type { RequestParams } from "./types/requestTypes";
 
-const { usersRouter } = require("./resources/users");
-const { boardsRouter } = require("./resources/boards");
-const { tasksRouter } = require("./resources/tasks");
+// const { boardsRouter } = require("./resources/boards");
+// const { tasksRouter } = require("./resources/tasks");
 
-const PORT = PORT_ENV || 9999;
+export const PORT = PORT_ENV || 9999;
 
-const app = fastify();
-
-interface RequestParams {
-  [key: string]: string;
-}
+export const app = fastify();
 
 app.addHook<{ Params: RequestParams }>("onRequest", (req, res, done) => {
   const { params } = req;
-  const wrongPath = req.params["*"];
-  const paramValues = Object.values(req.params);
+  const wrongPath = params["*"];
+  const paramValues = Object.values(params);
   if (wrongPath === undefined && paramValues.length > 0) {
     validateId(res, paramValues);
   }
@@ -42,11 +39,6 @@ app.register(swagger, {
   },
 });
 
-app.register(usersRouter);
-app.register(boardsRouter);
-app.register(tasksRouter);
-
-module.exports = {
-  app,
-  PORT,
-};
+app.register(usersRoute);
+// app.register(boardsRouter);
+// app.register(tasksRouter);

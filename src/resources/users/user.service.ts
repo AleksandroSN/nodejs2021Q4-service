@@ -1,58 +1,80 @@
-const { HTTP_STATUS, findId } = require("../../utils");
-const { resetUser } = require("../tasks");
-const usersRepo = require("./user.memory.repository");
-const User = require("./user.model");
+import type { FastifyReply, FastifyRequest } from "fastify";
+import type { RequestParams, dataModels } from "../../types";
+import { HttpStatus, findId } from "../../utils";
+import { userRepo } from "./user.memory.repository";
+// const { resetUser } = require("../tasks");
 
-const getAllUsers = (_, res) => {
-  res.code(HTTP_STATUS.OK).send(usersRepo);
+/**
+ * async response from db with all users
+ * @param _ - request object , unuse
+ * @param res - Fastify response object
+ * @returns return all users in db with 200 code
+ */
+
+export const getAllUsers = async (_: FastifyRequest, res: FastifyReply) => {
+  const reply = await userRepo.getAllUsers();
+
+  await res.code(HttpStatus.OK).send(reply);
 };
 
-const getUser = (req, res) => {
-  const { userId } = req.params;
+/**
+ * async response from db with user on id
+ * @param req - Fastify requset object
+ * @param res - Fastify response object
+ * @returns return user on id with 200 code and without password field
+ */
 
-  findId(usersRepo, res, userId);
+export const getUser = async (req: FastifyRequest, res: FastifyReply) => {
+  const { userId } = req.params as RequestParams;
+  findId(userRepo.users, res, userId);
+  const reply = await userRepo.findUser(userId);
 
-  const result = usersRepo.find((user) => user.id === userId);
-
-  res.code(HTTP_STATUS.OK).send(result);
+  await res.code(HttpStatus.OK).send(reply);
 };
 
-const addUser = (req, res) => {
-  const { body } = req;
-  const user = new User(body);
-  usersRepo.push(user);
+/**
+ * async response from db with new user
+ * @param req - Fastify requset object
+ * @param res - Fastify response object
+ * @returns return new user with req.body data and 201 code
+ */
 
-  res.code(HTTP_STATUS.CREATED).send(user);
+export const addUser = async (req: FastifyRequest, res: FastifyReply) => {
+  const body = req.body as dataModels.UserModel;
+  const user = await userRepo.addUser(body);
+
+  await res.code(HttpStatus.CREATED).send(user);
 };
 
-const updateUser = (req, res) => {
-  const { userId } = req.params;
+/**
+ * async response from db with updated user
+ * @param req - Fastify requset object
+ * @param res - Fastify response object
+ * @returns return updated user with 200 code
+ */
 
-  findId(usersRepo, res, userId);
+export const updateUser = async (req: FastifyRequest, res: FastifyReply) => {
+  const { userId } = req.params as RequestParams;
+  const body = req.body as dataModels.UserModel;
+  findId(userRepo.users, res, userId);
 
-  const { body } = req;
-  const userIdx = usersRepo.findIndex((user) => user.id === userId);
-  const updatedUser = { ...usersRepo[userIdx], ...body };
-  usersRepo.splice(userIdx, 1, updatedUser);
+  const updatedUser = await userRepo.updateUser(userId, body);
 
-  res.code(HTTP_STATUS.OK).send(updatedUser);
+  await res.code(HttpStatus.OK).send(updatedUser);
 };
 
-const deleteUser = (req, res) => {
-  const { userId } = req.params;
+/**
+ * async response from db without
+ * @param req - Fastify requset object
+ * @param res - Fastify response object
+ * @returns return void with 204 code
+ */
 
-  findId(usersRepo, res, userId);
+export const deleteUser = async (req: FastifyRequest, res: FastifyReply) => {
+  const { userId } = req.params as RequestParams;
+  findId(userRepo.users, res, userId);
+  await userRepo.deleteUser(userId);
+  // resetUser(userId);
 
-  const userIdx = usersRepo.findIndex((user) => user.id === userId);
-  usersRepo.splice(userIdx, 1);
-  resetUser(userId);
-  res.code(HTTP_STATUS.NO_CONTENT).send();
-};
-
-module.exports = {
-  getAllUsers,
-  getUser,
-  addUser,
-  updateUser,
-  deleteUser,
+  await res.code(HttpStatus.NO_CONTENT).send();
 };

@@ -26,16 +26,17 @@
   "plugins": ["@typescript-eslint", "eslint-plugin-tsdoc"],
 
   "rules": {
-    "tsdoc/syntax": "warn",
+    "arrow-body-style": "off",
+    "comma-dangle": "off",
     "import/extensions": "off",
+    "import/prefer-default-export": "off",
     "linebreak-style": "off",
     "node/no-unsupported-features/es-syntax": "off",
     "no-underscore-dangle": "off",
-    "import/prefer-default-export": "off",
+    "no-console": "warn",
     "quotes": ["error", "double"],
-    "comma-dangle": "off",
-    "arrow-body-style": "off",
     "operator-linebreak": "off",
-    "no-console": "warn"
+    "tsdoc/syntax": "warn",
+    "@typescript-eslint/no-explicit-any": "error"
   }
 }
