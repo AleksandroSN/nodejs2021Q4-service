@@ -1,13 +1,14 @@
-const {
+import type { RouteShorthandOptionsWithHandler } from "fastify";
+import {
   getAllBoards,
   getBoard,
   addBoard,
   updateBoard,
   deleteBoard,
-} = require("./board.service");
-const { board, validateBody } = require("./board.helper");
+} from "./board.service";
+import { board, validateBody } from "./board.helper";
 
-const getAllBoardsOpts = {
+export const getAllBoardsOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       200: {
@@ -19,7 +20,7 @@ const getAllBoardsOpts = {
   handler: getAllBoards,
 };
 
-const getBoardOpts = {
+export const getBoardOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       200: board,
@@ -28,7 +29,7 @@ const getBoardOpts = {
   handler: getBoard,
 };
 
-const postBoardOpts = {
+export const postBoardOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     body: validateBody,
     response: {
@@ -38,7 +39,7 @@ const postBoardOpts = {
   handler: addBoard,
 };
 
-const putBoardOpts = {
+export const putBoardOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     body: validateBody,
     response: {
@@ -48,19 +49,11 @@ const putBoardOpts = {
   handler: updateBoard,
 };
 
-const deleteBoardOpts = {
+export const deleteBoardOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       204: {},
     },
   },
   handler: deleteBoard,
-};
-
-module.exports = {
-  getAllBoardsOpts,
-  getBoardOpts,
-  postBoardOpts,
-  putBoardOpts,
-  deleteBoardOpts,
 };

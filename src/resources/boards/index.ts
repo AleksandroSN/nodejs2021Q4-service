@@ -1,5 +1,3 @@
-const boardsRouter = require("./board.router");
+import { boardsRouter } from "./board.router";
 
-module.exports = {
-  boardsRouter,
-};
+export { boardsRouter };

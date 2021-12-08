@@ -1,4 +1,26 @@
-const column = {
+import type { SchemaOptsType, TypeField } from "../../types";
+
+type ColumnOpts = {
+  id: TypeField;
+  title: TypeField;
+  order: TypeField;
+};
+
+type ColumnsOpts = {
+  type: string;
+  items: SchemaOptsType<ColumnOpts>;
+};
+
+type BoardOpts = Omit<ColumnOpts, "order">;
+interface BoardOptsFull extends BoardOpts {
+  columns: ColumnsOpts;
+}
+
+interface IValidateBody extends SchemaOptsType<BoardOptsFull> {
+  required: string[];
+}
+
+export const column: SchemaOptsType<ColumnOpts> = {
   type: "object",
   properties: {
     id: { type: "string" },
@@ -7,12 +29,12 @@ const column = {
   },
 };
 
-const columns = {
+export const columns: ColumnsOpts = {
   type: "array",
   items: column,
 };
 
-const board = {
+export const board: SchemaOptsType<BoardOptsFull> = {
   type: "object",
   properties: {
     id: { type: "string" },
@@ -21,7 +43,7 @@ const board = {
   },
 };
 
-const validateBody = {
+export const validateBody: IValidateBody = {
   type: "object",
   required: ["title"],
   properties: {
@@ -29,9 +51,4 @@ const validateBody = {
     title: { type: "string" },
     columns,
   },
-};
-
-module.exports = {
-  board,
-  validateBody,
 };

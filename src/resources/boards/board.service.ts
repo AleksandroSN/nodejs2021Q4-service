@@ -1,57 +1,79 @@
-const { HTTP_STATUS, findId } = require("../../utils");
-const { deleteAllTasks } = require("../tasks");
-const boardRepo = require("./board.memory.repository");
-const Board = require("./board.model");
+import type { FastifyRequest, FastifyReply } from "fastify";
+import type { dataModels, RequestParams } from "../../types";
+import { HttpStatus, findId } from "../../utils";
+import { boardRepo } from "./board.memory.repository";
+// const { deleteAllTasks } = require("../tasks");
 
-const getAllBoards = (_, res) => {
-  res.code(HTTP_STATUS.OK).send(boardRepo);
+/**
+ * async response from db with all boards
+ * @param _ - request object , unuse
+ * @param res - Fastify response object
+ * @returns return all boards in db with 200 code
+ */
+
+export const getAllBoards = async (_: FastifyRequest, res: FastifyReply) => {
+  const reply = await boardRepo.getAllBoards();
+
+  await res.code(HttpStatus.OK).send(reply);
 };
 
-const getBoard = (req, res) => {
-  const { boardId } = req.params;
+/**
+ * async response from db with board on id
+ * @param req - request object , unuse
+ * @param res - Fastify response object
+ * @returns return board on id with 200 code
+ */
 
-  findId(boardRepo, res, boardId);
+export const getBoard = async (req: FastifyRequest, res: FastifyReply) => {
+  const { boardId } = req.params as RequestParams;
+  findId(boardRepo.boards, res, boardId);
+  const result = await boardRepo.findBoard(boardId);
 
-  const result = boardRepo.find((board) => board.id === boardId);
-
-  res.code(HTTP_STATUS.OK).send(result);
+  await res.code(HttpStatus.OK).send(result);
 };
 
-const addBoard = (req, res) => {
-  const { body } = req;
-  const board = new Board(body);
-  boardRepo.push(board);
+/**
+ * async response from db with new board
+ * @param req - request object , unuse
+ * @param res - Fastify response object
+ * @returns return new board with 201 code
+ */
 
-  res.code(HTTP_STATUS.CREATED).send(board);
+export const addBoard = async (req: FastifyRequest, res: FastifyReply) => {
+  const body = req.body as dataModels.BoardModel;
+  const newBoard = await boardRepo.addBoard(body);
+
+  await res.code(HttpStatus.CREATED).send(newBoard);
 };
 
-const updateBoard = (req, res) => {
-  const { boardId } = req.params;
+/**
+ * async response from db with updated board
+ * @param req - request object , unuse
+ * @param res - Fastify response object
+ * @returns return updated board with 200 code
+ */
 
-  findId(boardRepo, res, boardId);
+export const updateBoard = async (req: FastifyRequest, res: FastifyReply) => {
+  const { boardId } = req.params as RequestParams;
+  const body = req.body as dataModels.BoardModel;
+  findId(boardRepo.boards, res, boardId);
+  const updatedBoard = await boardRepo.updateBoard(boardId, body);
 
-  const { body } = req;
-  const boardIdx = boardRepo.findIndex((board) => board.id === boardId);
-  const updatedBoard = { ...boardRepo[boardIdx], ...body };
-  boardRepo.splice(boardIdx, 1, updatedBoard);
-
-  res.code(HTTP_STATUS.OK).send(updatedBoard);
+  await res.code(HttpStatus.OK).send(updatedBoard);
 };
 
-const deleteBoard = (req, res) => {
-  const { boardId } = req.params;
-  findId(boardRepo, res, boardId);
+/**
+ * async response from db for delete board
+ * @param req - request object , unuse
+ * @param res - Fastify response object
+ * @returns return void with 204 code
+ */
 
-  const boardIdx = boardRepo.findIndex((board) => board.id === boardId);
-  boardRepo.splice(boardIdx, 1);
-  deleteAllTasks(req);
-  res.code(HTTP_STATUS.NO_CONTENT).send();
-};
+export const deleteBoard = async (req: FastifyRequest, res: FastifyReply) => {
+  const { boardId } = req.params as RequestParams;
+  findId(boardRepo.boards, res, boardId);
+  await boardRepo.deleteBoard(boardId);
+  // deleteAllTasks(req);
 
-module.exports = {
-  getAllBoards,
-  getBoard,
-  addBoard,
-  updateBoard,
-  deleteBoard,
+  await res.code(HttpStatus.NO_CONTENT).send();
 };

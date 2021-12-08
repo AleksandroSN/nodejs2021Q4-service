@@ -3,9 +3,8 @@ import swagger from "fastify-swagger";
 import { PORT as PORT_ENV } from "./common";
 import { validateId } from "./utils";
 import { usersRoute } from "./resources/users";
+import { boardsRouter } from "./resources/boards";
 import type { RequestParams } from "./types/requestTypes";
-
-// const { boardsRouter } = require("./resources/boards");
 // const { tasksRouter } = require("./resources/tasks");
 
 export const PORT = PORT_ENV || 9999;
@@ -40,5 +39,5 @@ app.register(swagger, {
 });
 
 app.register(usersRoute);
-// app.register(boardsRouter);
+app.register(boardsRouter);
 // app.register(tasksRouter);

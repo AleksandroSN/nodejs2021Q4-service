@@ -1,29 +1,19 @@
-import type { TypeString } from "../../types";
+import type { SchemaOptsType, TypeField } from "../../types";
 
 type UserOptsWithPassword = {
-  id: TypeString;
-  name: TypeString;
-  login: TypeString;
-  password: TypeString;
+  id: TypeField;
+  name: TypeField;
+  login: TypeField;
+  password: TypeField;
 };
 
 type UserOptsWithoutPassword = Omit<UserOptsWithPassword, "password">;
 
-interface IUserWithPassword {
-  type: string;
-  properties: UserOptsWithPassword;
-}
-
-interface IUserWithoutPassword {
-  type: string;
-  properties: UserOptsWithoutPassword;
-}
-
-interface IValidateBody extends IUserWithPassword {
+interface IValidateBody extends SchemaOptsType<UserOptsWithPassword> {
   required: string[];
 }
 
-export const userWithPassword: IUserWithPassword = {
+export const userWithPassword: SchemaOptsType<UserOptsWithPassword> = {
   type: "object",
   properties: {
     id: { type: "string" },
@@ -33,7 +23,7 @@ export const userWithPassword: IUserWithPassword = {
   },
 };
 
-export const userWithoutPassword: IUserWithoutPassword = {
+export const userWithoutPassword: SchemaOptsType<UserOptsWithoutPassword> = {
   type: "object",
   properties: {
     id: { type: "string" },

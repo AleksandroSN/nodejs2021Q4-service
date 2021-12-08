@@ -15,8 +15,12 @@ export interface TaskModel {
   columnId: string;
 }
 
+export interface ColumnModel {
+  title: string;
+  order: number;
+}
 export interface BoardModel {
   id: string;
   title: string;
-  columns: string[];
+  columns: ColumnModel[];
 }
