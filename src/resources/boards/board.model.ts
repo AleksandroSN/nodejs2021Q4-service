@@ -4,9 +4,6 @@ import type { dataModels } from "../../types";
 /**
  * create Board with params.
  * If params undefined constructor use default params
- * @param id - unique id
- * @param title - board title
- * @param columns - board columns with view Array(title: string, order: number)
  * @returns new instance Board
  */
 export class Board implements dataModels.BoardModel {
@@ -15,6 +12,17 @@ export class Board implements dataModels.BoardModel {
   title: string;
 
   columns: dataModels.ColumnModel[];
+
+  /**
+   * constructor recieve object and destructure him
+   * for add default value
+   * object have next keys :
+   * @param id - unique id in uuid format. Type string.
+   * @param title - board title. Type string.
+   * @defaultValue param title "Board"
+   * @param columns - board columns. Type {@link dataModels.BoardModel}
+   * @defaultValue param columns `[]`
+   */
 
   constructor({
     id = uuid(),

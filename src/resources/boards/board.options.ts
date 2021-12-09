@@ -8,6 +8,12 @@ import {
 } from "./board.service";
 import { board, validateBody } from "./board.helper";
 
+/**
+ * options for `/boards` route and method GET.
+ * For more information click to link below:
+ * @see {@link https://www.fastify.io/docs/latest/Routes/#options}
+ */
+
 export const getAllBoardsOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
@@ -20,6 +26,12 @@ export const getAllBoardsOpts: RouteShorthandOptionsWithHandler = {
   handler: getAllBoards,
 };
 
+/**
+ * options for `/boards/:boardId` route and method GET.
+ * For more information click to link below:
+ * @see {@link https://www.fastify.io/docs/latest/Routes/#options}
+ */
+
 export const getBoardOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
@@ -28,6 +40,12 @@ export const getBoardOpts: RouteShorthandOptionsWithHandler = {
   },
   handler: getBoard,
 };
+
+/**
+ * options for `/boards` route and method POST.
+ * For more information click to link below:
+ * @see {@link https://www.fastify.io/docs/latest/Routes/#options}
+ */
 
 export const postBoardOpts: RouteShorthandOptionsWithHandler = {
   schema: {
@@ -39,6 +57,12 @@ export const postBoardOpts: RouteShorthandOptionsWithHandler = {
   handler: addBoard,
 };
 
+/**
+ * options for `/boards/:boardId/tasks` route and method PUT.
+ * For more information click to link below:
+ * @see {@link https://www.fastify.io/docs/latest/Routes/#options}
+ */
+
 export const putBoardOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     body: validateBody,
@@ -48,6 +72,12 @@ export const putBoardOpts: RouteShorthandOptionsWithHandler = {
   },
   handler: updateBoard,
 };
+
+/**
+ * options for `/boards/:boardId/tasks` route and method DELETE.
+ * For more information click to link below:
+ * @see {@link https://www.fastify.io/docs/latest/Routes/#options}
+ */
 
 export const deleteBoardOpts: RouteShorthandOptionsWithHandler = {
   schema: {

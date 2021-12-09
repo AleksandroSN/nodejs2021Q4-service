@@ -11,9 +11,8 @@ interface BoardRepoModel {
 }
 
 /**
- * class for work with boards array (InMemoryDB)
- * @param boards - array boards
- * @returns empty boards arr
+ * class for work with tasks array (InMemoryDB)
+ * @returns instance class `BoardRepo` with empty tasks arr
  */
 class BoardRepo implements BoardRepoModel {
   boards: dataModels.BoardModel[];
@@ -22,9 +21,19 @@ class BoardRepo implements BoardRepoModel {
     this.boards = [];
   }
 
+  /**
+   * Get all boards from array
+   * @returns `Promise<dataModels.BoardModel[]>`
+   */
+
   async getAllBoards() {
     return Promise.resolve(this.boards);
   }
+
+  /**
+   * Add new board into array
+   * @returns `Promise<User>`
+   */
 
   async addBoard(body: dataModels.BoardModel) {
     const board = new Board(body);
@@ -32,10 +41,20 @@ class BoardRepo implements BoardRepoModel {
     return Promise.resolve(board);
   }
 
+  /**
+   * Get board on id from array
+   * @returns `Promise<dataModels.BoardModel>` or `undefined`
+   */
+
   async findBoard(id: string) {
     const result = this.boards.find((board) => board.id === id);
     return Promise.resolve(result);
   }
+
+  /**
+   * Update board on id from array
+   * @returns `Promise<dataModels.BoardModel>`
+   */
 
   async updateBoard(id: string, body: dataModels.BoardModel) {
     const boardIdx = this.boards.findIndex((board) => board.id === id);
@@ -46,6 +65,11 @@ class BoardRepo implements BoardRepoModel {
     this.boards.splice(boardIdx, 1, updatedBoard);
     return Promise.resolve(updatedBoard);
   }
+
+  /**
+   * Delete board on id from array
+   * @returns `Promise<void>`
+   */
 
   async deleteBoard(id: string) {
     this.boards = this.boards.filter((board) => board.id !== id);

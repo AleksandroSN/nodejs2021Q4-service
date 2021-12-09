@@ -12,7 +12,7 @@ interface UserRepoModel {
 
 /**
  * class for work with users array (InMemoryDB)
- * @returns empty users arr
+ * @returns instance class `UserRepo` empty users arr
  */
 class UserRepo implements UserRepoModel {
   users: dataModels.UserModel[];

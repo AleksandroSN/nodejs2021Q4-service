@@ -8,6 +8,12 @@ import {
 } from "./tasks.service";
 import { task } from "./task.helper";
 
+/**
+ * options for `/boards/:boardId/tasks` route and method GET.
+ * For more information click to link below:
+ * @see {@link https://www.fastify.io/docs/latest/Routes/#options}
+ */
+
 export const getAllTasksOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
@@ -20,6 +26,12 @@ export const getAllTasksOpts: RouteShorthandOptionsWithHandler = {
   handler: getAllTasks,
 };
 
+/**
+ * options for `/boards/:boardId/tasks/:taskId` route and method GET.
+ * For more information click to link below:
+ * @see {@link https://www.fastify.io/docs/latest/Routes/#options}
+ */
+
 export const getTaskOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
@@ -28,6 +40,12 @@ export const getTaskOpts: RouteShorthandOptionsWithHandler = {
   },
   handler: getTask,
 };
+
+/**
+ * options for `/boards/:boardId/tasks` route and method POST.
+ * For more information click to link below:
+ * @see {@link https://www.fastify.io/docs/latest/Routes/#options}
+ */
 
 export const postOpts: RouteShorthandOptionsWithHandler = {
   schema: {
@@ -39,6 +57,12 @@ export const postOpts: RouteShorthandOptionsWithHandler = {
   handler: addTask,
 };
 
+/**
+ * options for `/boards/:boardId/tasks/:taskId` route and method PUT.
+ * For more information click to link below:
+ * @see {@link https://www.fastify.io/docs/latest/Routes/#options}
+ */
+
 export const putOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     body: task,
@@ -48,6 +72,12 @@ export const putOpts: RouteShorthandOptionsWithHandler = {
   },
   handler: updateTask,
 };
+
+/**
+ * options for `/boards/:boardId/tasks/:taskId` route and method DELETE.
+ * For more information click to link below:
+ * @see {@link https://www.fastify.io/docs/latest/Routes/#options}
+ */
 
 export const deleteOpts: RouteShorthandOptionsWithHandler = {
   schema: {

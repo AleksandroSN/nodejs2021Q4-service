@@ -2,15 +2,9 @@ import { v4 as uuid } from "uuid";
 import type { dataModels } from "../../types";
 
 /**
- * class for create new task
- * @param id - unique id
- * @param title - task title
- * @param order - task order, type integer
- * @param description - task description
- * @param userId - userId who created task
- * @param boardId - boardId where the column is placed
- * @param columnId - columnId where create task
- * @returns new istance of Task
+ * create new Task with params.
+ * If params undefined constructor use default params
+ * @returns new instance Task
  */
 export class Task implements dataModels.TaskModel {
   id: string;
@@ -27,11 +21,30 @@ export class Task implements dataModels.TaskModel {
 
   columnId: string;
 
+  /**
+   * constructor recieve object and destructure him
+   * for add default value
+   * object have next keys :
+   * @param id - unique id in uuid format. Type string.
+   * @param title - task title. Type string.
+   * @defaultValue param title "TestTask"
+   * @param order - task order, type integer
+   * @defaultValue param order `0`
+   * @param description - task description
+   * @defaultValue param description `Default dummy task`
+   * @param userId - userId who created task
+   * @defaultValue param userId ""
+   * @param boardId - boardId where the column is placed
+   * @defaultValue param boardId ""
+   * @param columnId - columnId where create task
+   * @defaultValue param columnId ""
+   */
+
   constructor({
     id = uuid(),
-    title = "",
+    title = "TestTask",
     order = 0,
-    description = "",
+    description = "Default dummy task",
     userId = "",
     boardId = "",
     columnId = "",
