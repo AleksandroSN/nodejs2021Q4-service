@@ -5,6 +5,7 @@ import {
   addTask,
   updateTask,
   deleteTask,
+  checkElementInDb,
 } from "./tasks.service";
 import { task } from "./task.helper";
 
@@ -38,6 +39,7 @@ export const getTaskOpts: RouteShorthandOptionsWithHandler = {
       200: task,
     },
   },
+  preHandler: checkElementInDb,
   handler: getTask,
 };
 
@@ -70,6 +72,7 @@ export const putOpts: RouteShorthandOptionsWithHandler = {
       200: task,
     },
   },
+  preHandler: checkElementInDb,
   handler: updateTask,
 };
 
@@ -85,5 +88,6 @@ export const deleteOpts: RouteShorthandOptionsWithHandler = {
       204: {},
     },
   },
+  preHandler: checkElementInDb,
   handler: deleteTask,
 };

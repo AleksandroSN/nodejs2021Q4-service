@@ -11,6 +11,7 @@ import {
   addUser,
   updateUser,
   deleteUser,
+  checkElementInDb,
 } from "./user.service";
 
 /**
@@ -42,6 +43,7 @@ export const getUserOpts: RouteShorthandOptionsWithHandler = {
       200: userWithoutPassword,
     },
   },
+  preHandler: checkElementInDb,
   handler: getUser,
 };
 
@@ -74,6 +76,7 @@ export const putOpts: RouteShorthandOptionsWithHandler = {
       200: userWithoutPassword,
     },
   },
+  preHandler: checkElementInDb,
   handler: updateUser,
 };
 
@@ -89,5 +92,6 @@ export const deleteOpts: RouteShorthandOptionsWithHandler = {
       204: {},
     },
   },
+  preHandler: checkElementInDb,
   handler: deleteUser,
 };

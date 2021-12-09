@@ -5,6 +5,25 @@ import { boardRepo } from "./board.memory.repository";
 import { deleteAllTasks } from "../tasks";
 
 /**
+ * find element in db.
+ * {@link findId}
+ * @param req - Fastify requset object
+ * @param res - Fastify response object
+ * @returns Promise<void> or response with 404
+ */
+
+export const checkElementInDb = async (
+  req: FastifyRequest,
+  res: FastifyReply
+) => {
+  const params = req.params as RequestParams;
+  if (params.boardId) {
+    const { boardId } = params;
+    await findId(boardRepo.boards, res, boardId);
+  }
+};
+
+/**
  * async response from db with all boards
  * @param _ - request object , unuse
  * @param res - Fastify response object
@@ -26,7 +45,6 @@ export const getAllBoards = async (_: FastifyRequest, res: FastifyReply) => {
 
 export const getBoard = async (req: FastifyRequest, res: FastifyReply) => {
   const { boardId } = req.params as RequestParams;
-  findId(boardRepo.boards, res, boardId);
   const result = await boardRepo.findBoard(boardId);
 
   await res.code(HttpStatus.OK).send(result);
@@ -56,7 +74,6 @@ export const addBoard = async (req: FastifyRequest, res: FastifyReply) => {
 export const updateBoard = async (req: FastifyRequest, res: FastifyReply) => {
   const { boardId } = req.params as RequestParams;
   const body = req.body as dataModels.BoardModel;
-  findId(boardRepo.boards, res, boardId);
   const updatedBoard = await boardRepo.updateBoard(boardId, body);
 
   await res.code(HttpStatus.OK).send(updatedBoard);
@@ -71,7 +88,6 @@ export const updateBoard = async (req: FastifyRequest, res: FastifyReply) => {
 
 export const deleteBoard = async (req: FastifyRequest, res: FastifyReply) => {
   const { boardId } = req.params as RequestParams;
-  findId(boardRepo.boards, res, boardId);
   await boardRepo.deleteBoard(boardId);
   await deleteAllTasks(req);
 

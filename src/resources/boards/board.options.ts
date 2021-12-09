@@ -5,6 +5,7 @@ import {
   addBoard,
   updateBoard,
   deleteBoard,
+  checkElementInDb,
 } from "./board.service";
 import { board, validateBody } from "./board.helper";
 
@@ -38,6 +39,7 @@ export const getBoardOpts: RouteShorthandOptionsWithHandler = {
       200: board,
     },
   },
+  preHandler: checkElementInDb,
   handler: getBoard,
 };
 
@@ -70,6 +72,7 @@ export const putBoardOpts: RouteShorthandOptionsWithHandler = {
       200: board,
     },
   },
+  preHandler: checkElementInDb,
   handler: updateBoard,
 };
 
@@ -85,5 +88,6 @@ export const deleteBoardOpts: RouteShorthandOptionsWithHandler = {
       204: {},
     },
   },
+  preHandler: checkElementInDb,
   handler: deleteBoard,
 };

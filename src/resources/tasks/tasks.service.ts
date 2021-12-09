@@ -4,6 +4,25 @@ import type { dataModels, RequestParams } from "../../types";
 import { tasksRepo } from "./tasks.memory.repository";
 
 /**
+ * find element in db.
+ * {@link findId}
+ * @param req - Fastify requset object
+ * @param res - Fastify response object
+ * @returns Promise<void> or response with 404
+ */
+
+export const checkElementInDb = async (
+  req: FastifyRequest,
+  res: FastifyReply
+) => {
+  const params = req.params as RequestParams;
+  if (params.taskId) {
+    const { taskId } = params;
+    await findId(tasksRepo.tasks, res, taskId);
+  }
+};
+
+/**
  * async response from db with all task
  * @param _ - request object , unuse
  * @param res - Fastify response object
@@ -24,7 +43,6 @@ export const getAllTasks = async (_: FastifyRequest, res: FastifyReply) => {
 
 export const getTask = async (req: FastifyRequest, res: FastifyReply) => {
   const { taskId } = req.params as RequestParams;
-  findId(tasksRepo.tasks, res, taskId);
   const result = await tasksRepo.getTask(taskId);
 
   await res.code(HttpStatus.OK).send(result);
@@ -55,7 +73,6 @@ export const addTask = async (req: FastifyRequest, res: FastifyReply) => {
 export const updateTask = async (req: FastifyRequest, res: FastifyReply) => {
   const { taskId } = req.params as RequestParams;
   const body = req.body as dataModels.TaskModel;
-  findId(tasksRepo.tasks, res, taskId);
   const taskIdx = await tasksRepo.updateTask(taskId, body);
 
   await res.code(HttpStatus.OK).send(taskIdx);
@@ -70,7 +87,6 @@ export const updateTask = async (req: FastifyRequest, res: FastifyReply) => {
 
 export const deleteTask = async (req: FastifyRequest, res: FastifyReply) => {
   const { taskId } = req.params as RequestParams;
-  findId(tasksRepo.tasks, res, taskId);
   await tasksRepo.deleteTask(taskId);
 
   res.code(HttpStatus.NO_CONTENT).send();

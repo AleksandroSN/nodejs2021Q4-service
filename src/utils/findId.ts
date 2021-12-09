@@ -15,9 +15,13 @@ type DataModel =
  * @returns Returns void
  */
 
-export const findId = (arr: DataModel, res: FastifyReply, id: string): void => {
+export const findId = async (
+  arr: DataModel,
+  res: FastifyReply,
+  id: string
+): Promise<void> => {
   const findIdx = arr.findIndex((el) => el.id === id);
   if (findIdx < 0) {
-    res.code(HttpStatus.NOT_FOUND).send(`${id} not found`);
+    await res.code(HttpStatus.NOT_FOUND).send(`${id} not found`);
   }
 };

@@ -5,6 +5,25 @@ import { userRepo } from "./user.memory.repository";
 import { resetUser } from "../tasks";
 
 /**
+ * find element in db.
+ * {@link findId}
+ * @param req - Fastify requset object
+ * @param res - Fastify response object
+ * @returns Promise<void> or response with 404
+ */
+
+export const checkElementInDb = async (
+  req: FastifyRequest,
+  res: FastifyReply
+) => {
+  const params = req.params as RequestParams;
+  if (params.userId) {
+    const { userId } = params;
+    await findId(userRepo.users, res, userId);
+  }
+};
+
+/**
  * async response from db with all users
  * @param _ - request object , unuse
  * @param res - Fastify response object
@@ -26,7 +45,6 @@ export const getAllUsers = async (_: FastifyRequest, res: FastifyReply) => {
 
 export const getUser = async (req: FastifyRequest, res: FastifyReply) => {
   const { userId } = req.params as RequestParams;
-  findId(userRepo.users, res, userId);
   const reply = await userRepo.findUser(userId);
 
   await res.code(HttpStatus.OK).send(reply);
@@ -56,8 +74,6 @@ export const addUser = async (req: FastifyRequest, res: FastifyReply) => {
 export const updateUser = async (req: FastifyRequest, res: FastifyReply) => {
   const { userId } = req.params as RequestParams;
   const body = req.body as dataModels.UserModel;
-  findId(userRepo.users, res, userId);
-
   const updatedUser = await userRepo.updateUser(userId, body);
 
   await res.code(HttpStatus.OK).send(updatedUser);
@@ -72,7 +88,6 @@ export const updateUser = async (req: FastifyRequest, res: FastifyReply) => {
 
 export const deleteUser = async (req: FastifyRequest, res: FastifyReply) => {
   const { userId } = req.params as RequestParams;
-  findId(userRepo.users, res, userId);
   await userRepo.deleteUser(userId);
   await resetUser(userId);
 
