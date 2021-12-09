@@ -17,6 +17,14 @@ type Env = {
   [key in typeof envConfig[number]]: string;
 };
 
+/**
+ * Collect all keys from `process.env`.
+ * Return {@link Env}
+ * @returns new object with type Env.
+ * If key from arr is unvalid throw Error.
+ * @throws {@link Error}
+ */
+
 /* eslint-disable no-param-reassign */
 const config = envConfig.reduce((envObj, key) => {
   const value = process.env[key];

@@ -64,10 +64,10 @@ export const updateUser = async (req: FastifyRequest, res: FastifyReply) => {
 };
 
 /**
- * async response from db without
+ * async response from db without data
  * @param req - Fastify requset object
  * @param res - Fastify response object
- * @returns return void with 204 code
+ * @returns return `void` with 204 code
  */
 
 export const deleteUser = async (req: FastifyRequest, res: FastifyReply) => {

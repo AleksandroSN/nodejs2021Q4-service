@@ -4,10 +4,6 @@ import type { dataModels } from "../../types";
 /**
  * create User with params.
  * If params undefined constructor use default params
- * @param id - unique id
- * @param name - user name
- * @param login - user login
- * @param password - user password
  * @returns new instance User
  */
 
@@ -19,6 +15,19 @@ export class User implements dataModels.UserModel {
   login: string;
 
   password: string;
+
+  /**
+   * constructor recieve object and destructure him
+   * for add default value
+   * object have next keys :
+   * @param id - unique id in uuid format. Type string.
+   * @param name - user name. Type string.
+   * @defaultValue param user "USER"
+   * @param login - user login. Type string.
+   * @defaultValue param login "user"
+   * @param password - user password. Type string.
+   * @defaultValue param password "P\@55w0rd"
+   */
 
   constructor({
     id = uuid(),

@@ -7,12 +7,11 @@ interface UserRepoModel {
   addUser(body: dataModels.UserModel): Promise<User>;
   findUser(id: string): Promise<dataModels.UserModel | undefined>;
   updateUser(id: string, body: dataModels.UserModel): Promise<User>;
-  deleteUser(id: string): Promise<null>;
+  deleteUser(id: string): Promise<void>;
 }
 
 /**
  * class for work with users array (InMemoryDB)
- * @param users - array users
  * @returns empty users arr
  */
 class UserRepo implements UserRepoModel {
@@ -22,9 +21,19 @@ class UserRepo implements UserRepoModel {
     this.users = [];
   }
 
+  /**
+   * Get all users from array
+   * @returns `Promise<dataModels.UserModel[]>`
+   */
+
   async getAllUsers() {
     return Promise.resolve(this.users);
   }
+
+  /**
+   * Add new user into array
+   * @returns `Promise<User>`
+   */
 
   async addUser(body: dataModels.UserModel) {
     const user = new User(body);
@@ -32,10 +41,20 @@ class UserRepo implements UserRepoModel {
     return Promise.resolve(user);
   }
 
+  /**
+   * Get user on id from array
+   * @returns `Promise<dataModels.UserModel>` or `undefined`
+   */
+
   async findUser(id: string) {
     const result = this.users.find((user) => user.id === id);
     return Promise.resolve(result);
   }
+
+  /**
+   * Update user on id from array
+   * @returns `Promise<dataModels.UserModel>`
+   */
 
   async updateUser(id: string, body: dataModels.UserModel) {
     const userIdx = this.users.findIndex((user) => user.id === id);
@@ -47,9 +66,14 @@ class UserRepo implements UserRepoModel {
     return Promise.resolve(updatedUser);
   }
 
+  /**
+   * Delete user on id from array
+   * @returns `Promise<void>`
+   */
+
   async deleteUser(id: string) {
     this.users = this.users.filter((user) => user.id !== id);
-    return Promise.resolve(null);
+    return Promise.resolve();
   }
 }
 
