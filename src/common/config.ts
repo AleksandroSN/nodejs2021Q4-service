@@ -13,9 +13,7 @@ const envConfig = [
   "AUTH_MODE",
 ] as const;
 
-type Env = {
-  [key in typeof envConfig[number]]: string;
-};
+type Env = Record<typeof envConfig[number], string>;
 
 /**
  * Collect all keys from `process.env`.

@@ -1,10 +1,6 @@
 import type { SchemaOptsType, TypeField } from "../../types";
 
-type ColumnOpts = {
-  id: TypeField;
-  title: TypeField;
-  order: TypeField;
-};
+type ColumnOpts = Record<"id" | "title" | "order", TypeField>;
 
 type ColumnsOpts = {
   type: string;

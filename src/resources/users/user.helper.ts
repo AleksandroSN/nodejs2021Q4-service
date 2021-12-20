@@ -1,11 +1,9 @@
 import type { SchemaOptsType, TypeField } from "../../types";
 
-type UserOptsWithPassword = {
-  id: TypeField;
-  name: TypeField;
-  login: TypeField;
-  password: TypeField;
-};
+type UserOptsWithPassword = Record<
+  "id" | "name" | "login" | "password",
+  TypeField
+>;
 
 type UserOptsWithoutPassword = Omit<UserOptsWithPassword, "password">;
 

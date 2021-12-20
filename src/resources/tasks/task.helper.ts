@@ -1,14 +1,9 @@
 import type { SchemaOptsType, TypeField } from "../../types";
 
-type TaskOpts = {
-  id: TypeField;
-  title: TypeField;
-  order: TypeField;
-  description: TypeField;
-  userId: TypeField;
-  boardId: TypeField;
-  columnId: TypeField;
-};
+type TaskOpts = Record<
+  "id" | "title" | "order" | "description" | "userId" | "boardId" | "columnId",
+  TypeField
+>;
 
 export const task: SchemaOptsType<TaskOpts> = {
   type: "object",
