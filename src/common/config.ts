@@ -11,6 +11,7 @@ const envConfig = [
   "MONGO_CONNECTION_STRING",
   "JWT_SECRET_KEY",
   "AUTH_MODE",
+  "LOG_LEVEL",
 ] as const;
 
 type Env = Record<typeof envConfig[number], string>;
@@ -40,4 +41,5 @@ export const {
   MONGO_CONNECTION_STRING,
   JWT_SECRET_KEY,
   AUTH_MODE,
+  LOG_LEVEL,
 } = config;

@@ -6,3 +6,13 @@ export enum HttpStatus {
   NOT_FOUND = 404,
   INTERNAL_SERVER_ERROR = 500,
 }
+
+type LogLevelsModel = Record<string, string>;
+
+export const logLevels: LogLevelsModel = {
+  "0": "error",
+  "1": "warn",
+  "2": "info",
+  "3": "debug",
+  "4": "trace",
+};

@@ -1,0 +1,50 @@
+[32mINFO[39m [2021-22-12, 11:46:21 AM] (3604 on LAPTOP-JUNGI0RE): [36mServer listening at http://127.0.0.1:4000[39m
+[32mINFO[39m [2021-22-12, 11:48:44 AM] (3663 on LAPTOP-JUNGI0RE): [36mServer listening at http://127.0.0.1:4000[39m
+[32mINFO[39m [2021-22-12, 11:48:57 AM] (3663 on LAPTOP-JUNGI0RE): [36mincoming request[39m
+    req: {
+      "hostname": "localhost:4000",
+      "method": "GET",
+      "remoteAddress": "127.0.0.1",
+      "url": "/boards?name=sfsdfdsfs",
+      "queryParams": {
+        "name": "sfsdfdsfs"
+      }
+    }
+    reqId: "req-1"
+[31mERROR[39m [2021-22-12, 11:48:57 AM] (3663 on LAPTOP-JUNGI0RE): [36mAAAA[39m
+    req: {
+      "hostname": "localhost:4000",
+      "method": "GET",
+      "remoteAddress": "127.0.0.1",
+      "url": "/boards?name=sfsdfdsfs",
+      "queryParams": {
+        "name": "sfsdfdsfs"
+      }
+    }
+    res: {
+      "statusCode": 500
+    }
+    reqId: "req-1"
+    err: {
+      "type": "Error",
+      "message": "AAAA",
+      "stack":
+          Error: AAAA
+              at Object.getAllBoards (/home/aleksandro/projects/NodeJS2021Q4/nodejs2021Q4-service/src/resources/boards/board.service.ts:34:9)
+              at preHandlerCallback (/home/aleksandro/projects/NodeJS2021Q4/nodejs2021Q4-service/node_modules/fastify/lib/handleRequest.js:126:28)
+              at next (/home/aleksandro/projects/NodeJS2021Q4/nodejs2021Q4-service/node_modules/fastify/lib/hooks.js:158:7)
+              at Object.<anonymous> (/home/aleksandro/projects/NodeJS2021Q4/nodejs2021Q4-service/src/app.ts:51:3)
+              at hookIterator (/home/aleksandro/projects/NodeJS2021Q4/nodejs2021Q4-service/node_modules/fastify/lib/hooks.js:237:10)
+              at next (/home/aleksandro/projects/NodeJS2021Q4/nodejs2021Q4-service/node_modules/fastify/lib/hooks.js:164:16)
+              at hookRunner (/home/aleksandro/projects/NodeJS2021Q4/nodejs2021Q4-service/node_modules/fastify/lib/hooks.js:187:3)
+              at preValidationCallback (/home/aleksandro/projects/NodeJS2021Q4/nodejs2021Q4-service/node_modules/fastify/lib/handleRequest.js:101:5)
+              at handler (/home/aleksandro/projects/NodeJS2021Q4/nodejs2021Q4-service/node_modules/fastify/lib/handleRequest.js:72:7)
+              at handleRequest (/home/aleksandro/projects/NodeJS2021Q4/nodejs2021Q4-service/node_modules/fastify/lib/handleRequest.js:20:5)
+    }
+[32mINFO[39m [2021-22-12, 11:48:57 AM] (3663 on LAPTOP-JUNGI0RE): [36mrequest completed[39m
+    res: {
+      "statusCode": 500
+    }
+    responseTime: 17.359999999403954
+    reqId: "req-1"
+[32mINFO[39m [2021-22-12, 11:50:38 AM] (3713 on LAPTOP-JUNGI0RE): [36mServer listening at http://127.0.0.1:4000[39m
