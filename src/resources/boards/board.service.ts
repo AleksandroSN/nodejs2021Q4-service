@@ -31,7 +31,6 @@ export const checkElementInDb = async (
  */
 
 export const getAllBoards = async (_: FastifyRequest, res: FastifyReply) => {
-  throw new Error("AAAA");
   const reply = await boardRepo.getAllBoards();
 
   await res.code(HttpStatus.OK).send(reply);

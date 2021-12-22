@@ -28,4 +28,4 @@
               at handler (/home/aleksandro/projects/NodeJS2021Q4/nodejs2021Q4-service/node_modules/fastify/lib/handleRequest.js:72:7)
               at handleRequest (/home/aleksandro/projects/NodeJS2021Q4/nodejs2021Q4-service/node_modules/fastify/lib/handleRequest.js:20:5)
     }
-Oops!Oops!Oops!Oops!Oops!
+Oops!Oops!Oops!Oops!Oops!Oops!Ooops!

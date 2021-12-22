@@ -48,3 +48,64 @@
     responseTime: 17.359999999403954
     reqId: "req-1"
 [32mINFO[39m [2021-22-12, 11:50:38 AM] (3713 on LAPTOP-JUNGI0RE): [36mServer listening at http://127.0.0.1:4000[39m
+[32mINFO[39m [2021-22-12, 12:23:38 PM] (5238 on LAPTOP-JUNGI0RE): [36mServer listening at http://127.0.0.1:4000[39m
+[32mINFO[39m [2021-22-12, 12:23:42 PM] (5238 on LAPTOP-JUNGI0RE): [36mincoming request[39m
+    req: {
+      "hostname": "localhost:4000",
+      "method": "GET",
+      "remoteAddress": "127.0.0.1",
+      "url": "/users",
+      "queryParams": {}
+    }
+    reqId: "req-1"
+[32mINFO[39m [2021-22-12, 12:24:43 PM] (5272 on LAPTOP-JUNGI0RE): [36mServer listening at http://127.0.0.1:4000[39m
+[32mINFO[39m [2021-22-12, 12:24:46 PM] (5272 on LAPTOP-JUNGI0RE): [36mincoming request[39m
+    req: {
+      "hostname": "localhost:4000",
+      "method": "GET",
+      "remoteAddress": "127.0.0.1",
+      "url": "/users",
+      "queryParams": {}
+    }
+    reqId: "req-1"
+[32mINFO[39m [2021-22-12, 12:24:46 PM] (5272 on LAPTOP-JUNGI0RE): [36mrequest completed[39m
+    res: {
+      "statusCode": 200
+    }
+    responseTime: 4.960400000214577
+    reqId: "req-1"
+[32mINFO[39m [2021-22-12, 12:40:41 PM] (5541 on LAPTOP-JUNGI0RE): [36mServer listening at http://127.0.0.1:4000[39m
+[32mINFO[39m [2021-22-12, 12:41:25 PM] (5602 on LAPTOP-JUNGI0RE): [36mServer listening at http://127.0.0.1:4000[39m
+[32mINFO[39m [2021-22-12, 12:41:38 PM] (5602 on LAPTOP-JUNGI0RE): [36mincoming request[39m
+    req: {
+      "hostname": "localhost:4000",
+      "method": "GET",
+      "remoteAddress": "127.0.0.1",
+      "url": "/users",
+      "queryParams": {}
+    }
+    reqId: "req-1"
+[32mINFO[39m [2021-22-12, 12:41:38 PM] (5602 on LAPTOP-JUNGI0RE): [36mrequest completed[39m
+    res: {
+      "statusCode": 200
+    }
+    responseTime: 5.751000000163913
+    reqId: "req-1"
+[32mINFO[39m [2021-22-12, 12:41:55 PM] (5602 on LAPTOP-JUNGI0RE): [36mincoming request[39m
+    req: {
+      "hostname": "localhost:4000",
+      "method": "GET",
+      "remoteAddress": "127.0.0.1",
+      "url": "/boards?name=sfsdfdsfs",
+      "queryParams": {
+        "name": "sfsdfdsfs"
+      }
+    }
+    reqId: "req-2"
+[32mINFO[39m [2021-22-12, 12:41:55 PM] (5602 on LAPTOP-JUNGI0RE): [36mrequest completed[39m
+    res: {
+      "statusCode": 200
+    }
+    responseTime: 0.7961999997496605
+    reqId: "req-2"
+Ooops!Ooops!

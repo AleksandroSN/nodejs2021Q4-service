@@ -1,5 +1,5 @@
-import { HttpStatus, logLevels } from "./constants";
+import { HttpStatus, logLevels, logFile, errorLogFile } from "./constants";
 import { validateId } from "./validateId";
 import { findId } from "./findId";
 
-export { HttpStatus, validateId, findId, logLevels };
+export { HttpStatus, validateId, findId, logLevels, logFile, errorLogFile };

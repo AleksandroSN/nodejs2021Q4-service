@@ -1,3 +1,5 @@
+import path from "path";
+
 export enum HttpStatus {
   OK = 200,
   CREATED = 201,
@@ -16,3 +18,6 @@ export const logLevels: LogLevelsModel = {
   "3": "debug",
   "4": "trace",
 };
+
+export const logFile = path.join(__dirname, "../../log.txt");
+export const errorLogFile = path.join(__dirname, "../../errorLog.txt");

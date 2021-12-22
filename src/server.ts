@@ -9,7 +9,7 @@ import { app, PORT } from "./app";
 const start = async () => {
   try {
     await app.listen(PORT);
-    console.log(`START as ${PORT}`);
+    process.stdout.write(`START as ${PORT} \n`);
   } catch (error) {
     app.log.error(error);
     process.exit(1);
@@ -17,4 +17,3 @@ const start = async () => {
 };
 
 start();
-throw Error("Oops!");
