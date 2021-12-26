@@ -9,9 +9,15 @@ export enum HttpStatus {
   INTERNAL_SERVER_ERROR = 500,
 }
 
-type LogLevelsModel = Record<string, string>;
+type CommonObject = Record<string, string>;
 
-export const logLevels: LogLevelsModel = {
+export const invalidsPort: CommonObject = {
+  "80": "80",
+  "443": "443",
+  "8080": "8080",
+};
+
+export const logLevels: CommonObject = {
   "0": "error",
   "1": "warn",
   "2": "info",

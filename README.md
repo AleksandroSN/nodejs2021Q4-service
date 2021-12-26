@@ -17,6 +17,24 @@ git clone {repository URL}
 npm install
 ```
 
+## Logger
+
+For change level logs need go to env file and change
+
+```
+LOG_LEVEL
+```
+
+levels logs :
+
+- 0: error
+- 1: warn
+- 2: info
+- 3: debug
+- 4: all
+
+if level log === 0, all errors logs write in errorLog.txt
+
 ## Running application
 
 ```
