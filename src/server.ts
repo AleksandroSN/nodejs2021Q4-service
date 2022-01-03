@@ -1,6 +1,7 @@
 import { app } from "./app";
 import { logger } from "./logger";
 import { PORT } from "./serverOptions";
+import { HOST } from "./utils";
 
 logger.portValidation(PORT, app);
 logger.debugInfo(app);
@@ -12,8 +13,8 @@ logger.debugInfo(app);
 
 const start = async () => {
   try {
-    await app.listen(PORT);
-    process.stdout.write(`START as ${PORT} \n`);
+    await app.listen(PORT, HOST);
+    process.stdout.write(`START at http://${HOST}:${PORT} \n`);
   } catch (error) {
     app.log.error(error);
     process.exit(1);

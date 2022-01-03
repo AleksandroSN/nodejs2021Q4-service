@@ -58,7 +58,7 @@ export const debugInfo = (app: FastifyInstance) => {
 };
 
 process.on("uncaughtException", (err) => {
-  process.stdout.write("Error, saved in file errorLog.txt \n");
+  process.stdout.write("Error, saved in file errorLog.log \n");
   fs.writeFileSync(errorLogFile, err.message, {
     flag: "a",
   });
@@ -66,7 +66,7 @@ process.on("uncaughtException", (err) => {
 });
 
 process.on("unhandledRejection", (err: Error) => {
-  process.stdout.write("Error, saved in file errorLog.txt \n");
+  process.stdout.write("Error, saved in file errorLog.log \n");
   fs.writeFileSync(errorLogFile, err.message, {
     flag: "a",
   });

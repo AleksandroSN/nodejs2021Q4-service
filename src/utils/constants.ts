@@ -25,5 +25,7 @@ export const logLevels: CommonObject = {
   "4": "trace",
 };
 
-export const logFile = path.join(__dirname, "../../log.txt");
-export const errorLogFile = path.join(__dirname, "../../errorLog.txt");
+export const logFile = path.join(__dirname, "../../log.log");
+export const errorLogFile = path.join(__dirname, "../../errorLog.log");
+
+export const HOST = "0.0.0.0";

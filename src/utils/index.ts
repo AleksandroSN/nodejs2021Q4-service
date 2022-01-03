@@ -4,6 +4,7 @@ import {
   logFile,
   errorLogFile,
   invalidsPort,
+  HOST,
 } from "./constants";
 import { validateId } from "./validateId";
 import { findId } from "./findId";
@@ -16,4 +17,5 @@ export {
   logFile,
   errorLogFile,
   invalidsPort,
+  HOST,
 };
