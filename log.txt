@@ -1,3 +1,0 @@
-[34mDEBUG[39m [2021-26-12, 11:17:54 AM] (9365 on LAPTOP-JUNGI0RE): [36mDebug msg[39m
-[34mDEBUG[39m [2021-26-12, 11:18:04 AM] (9398 on LAPTOP-JUNGI0RE): [36mDebug msg[39m
-[32mINFO[39m [2021-26-12, 11:18:04 AM] (9398 on LAPTOP-JUNGI0RE): [36mServer listening at http://127.0.0.1:4000[39m
