@@ -1,13 +1,16 @@
-FROM node:16.13-alpine3.14
+FROM node:16.13-alpine3.14 as build
 
-WORKDIR /home/docker
+WORKDIR /usr/app
 
-COPY package*.json ./
-
+COPY package*.json .
 RUN npm ci
 
-COPY . ./
+COPY . .
+# RUN npm run build && npm prune --production
 
-EXPOSE ${PORT}
+# FROM node:16.13-alpine3.14 as production
 
-CMD ["npm", "start"]
+# COPY --from=build /usr/app/ /
+# EXPOSE ${PORT}
+
+CMD ["npm", "run", "start:dev"]
