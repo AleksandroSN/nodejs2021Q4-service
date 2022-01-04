@@ -8,10 +8,13 @@ dotenv.config({
 const envConfig = [
   "PORT",
   "NODE_ENV",
-  "MONGO_CONNECTION_STRING",
   "JWT_SECRET_KEY",
   "AUTH_MODE",
   "LOG_LEVEL",
+  "POSTGRES_PORT",
+  "POSTGRES_USER",
+  "POSTGRES_PASSWORD",
+  "POSTGRES_DB",
 ] as const;
 
 type Env = Record<typeof envConfig[number], string>;
@@ -38,8 +41,11 @@ const config = envConfig.reduce((envObj, key) => {
 export const {
   PORT,
   NODE_ENV,
-  MONGO_CONNECTION_STRING,
   JWT_SECRET_KEY,
   AUTH_MODE,
   LOG_LEVEL,
+  POSTGRES_DB,
+  POSTGRES_PASSWORD,
+  POSTGRES_PORT,
+  POSTGRES_USER,
 } = config;
