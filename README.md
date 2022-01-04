@@ -4,6 +4,7 @@
 
 - Git - [Download & Install Git](https://git-scm.com/downloads).
 - Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
+- Docker - [Download and Install Docker](https://www.docker.com/get-started)
 
 ## Downloading
 
@@ -15,6 +16,26 @@ git clone {repository URL}
 
 ```
 npm install
+```
+
+## Docker
+
+For build use
+
+```
+docker-compose build
+```
+
+For start container use
+
+```
+docker-compose up -d
+```
+
+For shutdown container use
+
+```
+docker-compose down
 ```
 
 ## Logger
