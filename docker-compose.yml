@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   node-app:
-    image: node-app:deploy-node
+    image: aleksandrosn/nodejs2021q4-service:deploy-node
     container_name: node-app
     build:
       context: .
@@ -26,7 +26,7 @@ services:
       - postgres
     command: npm run start:dev
   postgres:
-    image: postgres:deploy-postgres
+    image: aleksandrosn/nodejs2021q4-service:deploy-postgres
     container_name: postgres
     build:
       context: .
@@ -35,8 +35,8 @@ services:
       - "${POSTGRES_PORT}:${POSTGRES_PORT}"
     volumes:
       - type: volume
-        source: postgreDB
-        target: /database
+        source: postgresDB
+        target: /var/lib/postgresql/data
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -47,5 +47,5 @@ networks:
   node-postgres:
     driver: bridge
 volumes:
-  postgreDB:
+  postgresDB:
   node_app_logs:

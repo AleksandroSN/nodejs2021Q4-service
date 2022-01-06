@@ -20,7 +20,14 @@ npm install
 
 ## Docker
 
-For build use
+For use ready build
+
+```
+docker-compose pull node-app
+docker-compose pull postgres
+```
+
+or new build
 
 ```
 docker-compose build
