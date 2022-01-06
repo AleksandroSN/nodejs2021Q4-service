@@ -2,13 +2,15 @@ version: "3.9"
 
 services:
   node-app:
+    image: node-app:deploy-node
+    container_name: node-app
     build:
       context: .
       dockerfile: Dockerfile
       target: production
     volumes:
-      - type: bind
-        source: ./logs
+      - type: volume
+        source: node_app_logs
         target: /logs
       - type: bind
         source: ./src
@@ -22,7 +24,10 @@ services:
       - node-postgres
     depends_on:
       - postgres
+    command: npm run start:dev
   postgres:
+    image: postgres:deploy-postgres
+    container_name: postgres
     build:
       context: .
       dockerfile: DockerfileDB
@@ -43,3 +48,4 @@ networks:
     driver: bridge
 volumes:
   postgreDB:
+  node_app_logs:
