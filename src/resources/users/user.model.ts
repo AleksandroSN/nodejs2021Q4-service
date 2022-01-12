@@ -1,3 +1,4 @@
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 import type { dataModels } from "../../types";
 
@@ -7,13 +8,18 @@ import type { dataModels } from "../../types";
  * @returns new instance User
  */
 
+@Entity({ name: "Users" })
 export class User implements dataModels.UserModel {
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  @Column()
   name: string;
 
+  @Column()
   login: string;
 
+  @Column()
   password: string;
 
   /**
@@ -29,12 +35,14 @@ export class User implements dataModels.UserModel {
    * @defaultValue param password "P\@55w0rd"
    */
 
-  constructor({
-    id = uuid(),
-    name = "USER",
-    login = "user",
-    password = "P@55w0rd",
-  }: dataModels.UserModel) {
+  constructor(
+    {
+      id = uuid(),
+      name = "USER",
+      login = "user",
+      password = "P@55w0rd",
+    } = {} as dataModels.UserModel
+  ) {
     this.id = id;
     this.name = name;
     this.login = login;
