@@ -1,3 +1,3 @@
-import { PORT, serverOptions } from "./serverOptions";
+import { PORT, serverOptions, DBCONFIG } from "./serverOptions";
 
-export { PORT, serverOptions };
+export { PORT, serverOptions, DBCONFIG };

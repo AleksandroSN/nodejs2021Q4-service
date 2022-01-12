@@ -2,7 +2,7 @@ import "reflect-metadata";
 import { createConnection } from "typeorm";
 import { app } from "./app";
 import { logger } from "./logger";
-import { PORT } from "./serverOptions";
+import { DBCONFIG, PORT } from "./serverOptions";
 import { HOST } from "./utils";
 
 logger.portValidation(PORT, app);
@@ -14,7 +14,7 @@ logger.debugInfo(app);
  * @returns Promise<void>
  */
 
-createConnection()
+createConnection(DBCONFIG)
   .then(async () => {
     process.stdout.write("Success connection to DB \n");
     await app.listen(PORT, HOST);
