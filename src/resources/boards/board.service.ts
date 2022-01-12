@@ -1,7 +1,7 @@
 import type { FastifyRequest, FastifyReply } from "fastify";
 import type { dataModels, RequestParams } from "../../types";
 import { HttpStatus, findId } from "../../utils";
-import { boardRepo } from "./board.memory.repository";
+import { boardRepo } from "./board.typeorm.repository";
 import { deleteAllTasks } from "../tasks";
 
 /**
@@ -19,7 +19,8 @@ export const checkElementInDb = async (
   const params = req.params as RequestParams;
   if (params.boardId) {
     const { boardId } = params;
-    await findId(boardRepo.boards, res, boardId);
+    const allBoards = await boardRepo.getAllBoards();
+    await findId(allBoards, res, boardId);
   }
 };
 

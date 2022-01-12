@@ -1,3 +1,4 @@
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 import type { dataModels } from "../../types";
 
@@ -6,11 +7,16 @@ import type { dataModels } from "../../types";
  * If params undefined constructor use default params
  * @returns new instance Board
  */
+
+@Entity({ name: "Boards" })
 export class Board implements dataModels.BoardModel {
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  @Column()
   title: string;
 
+  @Column("simple-json")
   columns: dataModels.ColumnModel[];
 
   /**
@@ -24,11 +30,9 @@ export class Board implements dataModels.BoardModel {
    * @defaultValue param columns `[]`
    */
 
-  constructor({
-    id = uuid(),
-    title = "Board",
-    columns = [],
-  }: dataModels.BoardModel) {
+  constructor(
+    { id = uuid(), title = "Board", columns = [] } = {} as dataModels.BoardModel
+  ) {
     this.id = id;
     this.title = title;
     this.columns = columns;
