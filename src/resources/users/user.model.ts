@@ -13,13 +13,13 @@ export class User implements dataModels.UserModel {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column()
+  @Column({ type: "varchar", length: 255, nullable: true })
   name: string;
 
-  @Column()
+  @Column({ type: "varchar", length: 255, nullable: true })
   login: string;
 
-  @Column()
+  @Column({ type: "varchar", length: 255, nullable: true })
   password: string;
 
   /**

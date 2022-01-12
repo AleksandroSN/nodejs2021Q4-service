@@ -1,25 +1,43 @@
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 import type { dataModels } from "../../types";
+import { Board } from "../boards/board.model";
+import { User } from "../users/user.model";
 
 /**
  * create new Task with params.
  * If params undefined constructor use default params
  * @returns new instance Task
  */
+
+@Entity({ name: "Tasks" })
 export class Task implements dataModels.TaskModel {
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  @Column({ type: "varchar", length: 255 })
   title: string;
 
+  @Column({ type: "integer" })
   order: number;
 
+  @Column({ type: "varchar", length: 255 })
   description: string;
 
-  userId: string;
+  @Column({ type: "varchar", nullable: true })
+  userId: string | null;
 
-  boardId: string;
+  @Column({ type: "varchar", nullable: true })
+  columnId: string | null;
 
-  columnId: string;
+  @Column({ type: "varchar", nullable: true })
+  boardId: string | null;
+
+  @ManyToOne(() => User, (user) => user.id, { onDelete: "SET NULL" })
+  user: User | undefined;
+
+  @ManyToOne(() => Board, (board) => board.id, { onDelete: "CASCADE" })
+  board: Board | undefined;
 
   /**
    * constructor recieve object and destructure him
@@ -40,15 +58,17 @@ export class Task implements dataModels.TaskModel {
    * @defaultValue param columnId ""
    */
 
-  constructor({
-    id = uuid(),
-    title = "TestTask",
-    order = 0,
-    description = "Default dummy task",
-    userId = "",
-    boardId = "",
-    columnId = "",
-  }: dataModels.TaskModel) {
+  constructor(
+    {
+      id = uuid(),
+      title = "TestTask",
+      order = 0,
+      description = "Default dummy task",
+      userId = null,
+      boardId = null,
+      columnId = null,
+    } = {} as dataModels.TaskModel
+  ) {
     this.id = id;
     this.title = title;
     this.order = order;

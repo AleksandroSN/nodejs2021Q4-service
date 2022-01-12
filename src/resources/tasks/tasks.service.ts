@@ -1,7 +1,7 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { HttpStatus, findId } from "../../utils";
 import type { dataModels, RequestParams } from "../../types";
-import { tasksRepo } from "./tasks.memory.repository";
+import { tasksRepo } from "./tasks.typeorm.repositore";
 
 /**
  * find element in db.
@@ -18,7 +18,8 @@ export const checkElementInDb = async (
   const params = req.params as RequestParams;
   if (params.taskId) {
     const { taskId } = params;
-    await findId(tasksRepo.tasks, res, taskId);
+    const allTasks = await tasksRepo.getAllTasks();
+    await findId(allTasks, res, taskId);
   }
 };
 
@@ -101,7 +102,7 @@ export const deleteTask = async (req: FastifyRequest, res: FastifyReply) => {
 
 export const deleteAllTasks = async (req: FastifyRequest) => {
   const { boardId } = req.params as RequestParams;
-  await tasksRepo.deleteTasksOnId(boardId);
+  await tasksRepo.deleteAllTasksOnBoardId(boardId);
 };
 
 /**
@@ -112,5 +113,5 @@ export const deleteAllTasks = async (req: FastifyRequest) => {
  */
 
 export const resetUser = async (userId: string) => {
-  await tasksRepo.modifyUserDataInTask(userId);
+  await tasksRepo.modifyUserIdInTask(userId);
 };

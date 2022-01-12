@@ -13,7 +13,7 @@ export class Board implements dataModels.BoardModel {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column()
+  @Column({ type: "varchar", length: 255, nullable: true })
   title: string;
 
   @Column("simple-json")

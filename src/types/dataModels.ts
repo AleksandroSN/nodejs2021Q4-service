@@ -11,8 +11,8 @@ export interface TaskModel {
   order: number;
   description: string;
   userId: string | null;
-  boardId: string;
-  columnId: string;
+  boardId: string | null;
+  columnId: string | null;
 }
 
 export interface ColumnModel {
