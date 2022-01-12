@@ -1,7 +1,7 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import type { RequestParams, dataModels } from "../../types";
 import { HttpStatus, findId } from "../../utils";
-import { userRepo } from "./user.memory.repository";
+import { userRepo } from "./user.typeorm.repository";
 import { resetUser } from "../tasks";
 
 /**
@@ -19,7 +19,8 @@ export const checkElementInDb = async (
   const params = req.params as RequestParams;
   if (params.userId) {
     const { userId } = params;
-    await findId(userRepo.users, res, userId);
+    const allUsers = await userRepo.getAllUsers();
+    await findId(allUsers, res, userId);
   }
 };
 
