@@ -45,6 +45,52 @@ For shutdown container use
 docker-compose down
 ```
 
+## PostgreSQL and pgAdmin
+
+`DB` : fastify-db <br>
+`Tables` :
+
+- Users
+- Tasks
+- Boards
+
+`Migrations` <br>
+
+CLI migrations
+
+```
+npm run typeorm
+```
+
+For auto generate migrations
+
+```
+npm run typeorm:generate
+```
+
+If migrations changes
+
+```
+npm run typeorm:run
+```
+
+Docker-compose contains image dpage/pgadmin4 => [pgAdmin](https://www.pgadmin.org/). <br>
+To access pgadmin from docker go to [http://localhost:5050](http://localhost:5050). <br>
+email : `admin@admin.com` <br>
+password: `root` <br>
+
+To work with the program in docker, use the next flow:
+
+1. Authorization
+2. Add new server
+
+   - Enter anything connection name
+   - Host `postgres`
+   - Username from .env file
+   - Password from .env file
+
+3. Browse servers
+
 ## Logger
 
 For change level logs need go to env file and change
@@ -70,7 +116,7 @@ npm start
 ```
 
 After starting the app on port (4000 as default) you can open
-in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
+in your browser OpenAPI documentation by typing http://localhost:4000/docs/.
 For more information about OpenAPI/Swagger please visit https://swagger.io/.
 
 ## Testing
