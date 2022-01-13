@@ -4,11 +4,12 @@ import {
   POSTGRES_USER,
   POSTGRES_PASSWORD,
   POSTGRES_DB,
+  POSTGRES_HOST,
 } from "../common";
 
 export const DBCONFIG: ConnectionOptions = {
   type: "postgres",
-  host: "localhost",
+  host: POSTGRES_HOST,
   port: Number(POSTGRES_PORT),
   username: POSTGRES_USER,
   password: POSTGRES_PASSWORD,

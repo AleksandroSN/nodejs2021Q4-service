@@ -8,6 +8,7 @@ import {
   POSTGRES_PASSWORD,
   POSTGRES_PORT,
   POSTGRES_USER,
+  POSTGRES_HOST,
 } from "./config";
 
 export {
@@ -20,4 +21,5 @@ export {
   POSTGRES_PASSWORD,
   POSTGRES_PORT,
   POSTGRES_USER,
+  POSTGRES_HOST,
 };

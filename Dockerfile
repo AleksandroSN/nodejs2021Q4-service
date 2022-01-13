@@ -6,7 +6,7 @@ COPY package*.json .
 RUN npm install --production
 
 COPY . .
-RUN npm run clean
+# RUN npm run clean
 
 FROM node:16.13-alpine3.14 as production
 
