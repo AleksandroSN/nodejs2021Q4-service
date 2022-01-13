@@ -2,8 +2,8 @@
 /* eslint-disable class-methods-use-this */
 import type { MigrationInterface, QueryRunner } from "typeorm";
 
-export class InitializationPG1642057221746 implements MigrationInterface {
-  name = "InitializationPG1642057221746";
+export class InitializationPG1642062956851 implements MigrationInterface {
+  name = "InitializationPG1642062956851";
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(

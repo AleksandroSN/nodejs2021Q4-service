@@ -1,3 +1,4 @@
-import { PORT, serverOptions, DBCONFIG } from "./serverOptions";
+import { PORT, serverOptions } from "./serverOptions";
+import { DBCONFIG } from "./ormconfig";
 
 export { PORT, serverOptions, DBCONFIG };
