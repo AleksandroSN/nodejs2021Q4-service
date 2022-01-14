@@ -3,9 +3,9 @@ import { v4 as uuid } from "uuid";
 import type { dataModels } from "../../types";
 
 /**
- * create User with params.
+ * Entity User for TypeORM.
  * If params undefined constructor use default params
- * @returns new instance User
+ * @returns new Entity<User>
  */
 
 @Entity({ name: "Users" })

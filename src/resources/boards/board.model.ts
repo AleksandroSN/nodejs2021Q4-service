@@ -3,9 +3,9 @@ import { v4 as uuid } from "uuid";
 import type { dataModels } from "../../types";
 
 /**
- * create Board with params.
+ * Entity Board for TypeORM.
  * If params undefined constructor use default params
- * @returns new instance Board
+ * @returns new Entity<Board>
  */
 
 @Entity({ name: "Boards" })

@@ -32,7 +32,7 @@ class BoardRepo implements BoardRepoModel {
 
   /**
    * Add new board into array
-   * @returns `Promise<User>`
+   * @returns `Promise<Board>`
    */
 
   async addBoard(body: dataModels.BoardModel) {

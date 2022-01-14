@@ -81,7 +81,7 @@ export const updateUser = async (req: FastifyRequest, res: FastifyReply) => {
 };
 
 /**
- * async response from db without data
+ * async response to db. Delete user on id and set id to null in tasks repo
  * @param req - Fastify requset object
  * @param res - Fastify response object
  * @returns return `void` with 204 code

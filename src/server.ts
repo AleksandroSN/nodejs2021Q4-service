@@ -14,13 +14,17 @@ logger.debugInfo(app);
  * @returns Promise<void>
  */
 
-createConnection(DBCONFIG)
-  .then(async () => {
+const start = async () => {
+  try {
+    await createConnection(DBCONFIG);
     process.stdout.write("Success connection to DB \n");
+
     await app.listen(PORT, HOST);
     process.stdout.write(`START at http://${HOST}:${PORT} \n`);
-  })
-  .catch((error) => {
+  } catch (error) {
     app.log.error(error);
     process.exit(1);
-  });
+  }
+};
+
+start();

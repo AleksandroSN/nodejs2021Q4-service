@@ -81,7 +81,7 @@ export const updateBoard = async (req: FastifyRequest, res: FastifyReply) => {
 };
 
 /**
- * async response from db for delete board
+ * async response from db for delete board and delete all tasks
  * @param req - request object , unuse
  * @param res - Fastify response object
  * @returns return void with 204 code

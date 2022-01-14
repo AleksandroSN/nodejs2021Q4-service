@@ -1,9 +1,19 @@
-import { getRepository } from "typeorm";
+import { DeleteResult, getRepository } from "typeorm";
 import type { dataModels } from "../../types";
 import { Task } from "./tasks.model";
 
+/**
+ * Get all tasks from PGTable Tasks
+ * @returns `Promise<dataModels.TaskModel[]>`
+ */
+
 const getAllTasks = async (): Promise<dataModels.TaskModel[]> =>
   getRepository(Task).find();
+
+/**
+ * Get one task on id from PGTable Tasks
+ * @returns `Promise<dataModels.TaskModel>`
+ */
 
 const getTask = async (
   id: string
@@ -11,6 +21,11 @@ const getTask = async (
   const task = await getRepository(Task).findOne(id);
   return task;
 };
+
+/**
+ * Add new task to PGTable Tasks
+ * @returns `Promise<dataModels.TaskModel>`
+ */
 
 const addTask = async (
   body: dataModels.TaskModel,
@@ -21,30 +36,54 @@ const addTask = async (
   return newTask;
 };
 
+/**
+ * Update task from PGTable Tasks
+ * @returns `Promise<dataModels.TaskModel>`
+ */
+
 const updateTask = async (
   id: string,
   body: dataModels.TaskModel
 ): Promise<dataModels.TaskModel> => {
-  const task = await getRepository(Task).findOne(id);
+  const tasksRepository = getRepository(Task);
+  const task = await tasksRepository.findOne(id);
   const updatedTask = { ...task, ...body } as dataModels.TaskModel;
-  const result = await getRepository(Task).save(updatedTask);
+  const result = await tasksRepository.save(updatedTask);
   return result;
 };
 
-const deleteTask = async (id: string) => getRepository(Task).delete(id);
+/**
+ * Delete task on id from PGTable Tasks
+ * @returns `Promise<DeleteResult>`
+ */
 
-const deleteAllTasksOnBoardId = async (boardId: string) => {
-  const tasksWithBoardId = await getRepository(Task).find({ boardId });
-  await getRepository(Task).remove(tasksWithBoardId);
+const deleteTask = async (id: string): Promise<DeleteResult> =>
+  getRepository(Task).delete(id);
+
+/**
+ * Delete all task if board will be deleted from PGTable Tasks
+ * @returns `Promise<void>`
+ */
+
+const deleteAllTasksOnBoardId = async (boardId: string): Promise<void> => {
+  const tasksRepository = getRepository(Task);
+  const tasksWithBoardId = await tasksRepository.find({ boardId });
+  await tasksRepository.remove(tasksWithBoardId);
 };
 
-const modifyUserIdInTask = async (userId: string) => {
-  const tasksWithBoardId = await getRepository(Task).find({ userId });
+/**
+ * Modify userId in task if user will be deleted from PGTable Tasks
+ * @returns `Promise<void>`
+ */
+
+const modifyUserIdInTask = async (userId: string): Promise<void> => {
+  const tasksRepository = getRepository(Task);
+  const tasksWithBoardId = await tasksRepository.find({ userId });
   const modifyTask = tasksWithBoardId.map((task) => ({
     ...task,
     ...{ userId: null },
   }));
-  await getRepository(Task).save(modifyTask);
+  await tasksRepository.save(modifyTask);
 };
 
 export const tasksRepo = {

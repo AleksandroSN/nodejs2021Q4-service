@@ -1,9 +1,19 @@
-import { getRepository } from "typeorm";
+import { DeleteResult, getRepository } from "typeorm";
 import { Board } from "./board.model";
 import type { dataModels } from "../../types";
 
+/**
+ * Get all boards from PGTable Boards
+ * @returns `Promise<dataModels.BoardModel[]>`
+ */
+
 const getAllBoards = async (): Promise<dataModels.BoardModel[]> =>
   getRepository(Board).find();
+
+/**
+ * Add new board to PGTable Boards
+ * @returns `Promise<dataModels.BoardModel>`
+ */
 
 const addBoard = async (
   body: dataModels.BoardModel
@@ -12,6 +22,11 @@ const addBoard = async (
   return board;
 };
 
+/**
+ * Get one board on id from PGTable Boards
+ * @returns `Promise<dataModels.BoardModel>`
+ */
+
 const findBoard = async (
   id: string
 ): Promise<dataModels.BoardModel | undefined> => {
@@ -19,17 +34,29 @@ const findBoard = async (
   return board;
 };
 
+/**
+ * Update board on id from PGTable Boards
+ * @returns `Promise<dataModels.BoardModel>`
+ */
+
 const updateBoard = async (
   id: string,
   body: dataModels.BoardModel
 ): Promise<dataModels.BoardModel> => {
-  const board = await getRepository(Board).findOne(id);
+  const boardsRepository = getRepository(Board);
+  const board = await boardsRepository.findOne(id);
   const updatedBoard = { ...board, ...body } as dataModels.BoardModel;
-  const result = await getRepository(Board).save(updatedBoard);
+  const result = await boardsRepository.save(updatedBoard);
   return result;
 };
 
-const deleteBoard = async (id: string) => getRepository(Board).delete(id);
+/**
+ * Delete board on id from PGTable Boards
+ * @returns `Promise<DeleteResult>`
+ */
+
+const deleteBoard = async (id: string): Promise<DeleteResult> =>
+  getRepository(Board).delete(id);
 
 export const boardRepo = {
   getAllBoards,

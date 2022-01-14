@@ -5,7 +5,7 @@ import { Board } from "../boards/board.model";
 import { User } from "../users/user.model";
 
 /**
- * create new Task with params.
+ * Entity Task for TypeORM.
  * If params undefined constructor use default params
  * @returns new instance Task
  */
