@@ -5,6 +5,8 @@ export interface UserModel {
   password: string;
 }
 
+export type AuthModel = Pick<UserModel, "login" | "password">;
+
 export interface TaskModel {
   id: string;
   title: string;

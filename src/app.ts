@@ -7,6 +7,7 @@ import { tasksRouter } from "./resources/tasks";
 import { logger } from "./logger";
 import { serverOptions, PORT } from "./serverOptions";
 import type { RequestParams } from "./types/requestTypes";
+import { authRouter } from "./resources/auth";
 
 export const app: FastifyInstance = fastify(serverOptions);
 
@@ -42,3 +43,4 @@ app.register(swagger, {
 app.register(usersRoute);
 app.register(boardsRouter);
 app.register(tasksRouter);
+app.register(authRouter);
