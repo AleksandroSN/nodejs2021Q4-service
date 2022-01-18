@@ -29,3 +29,5 @@ export const logFile = path.join(__dirname, "../../logs/info.log");
 export const errorLogFile = path.join(__dirname, "../../logs/error.log");
 
 export const HOST = "0.0.0.0";
+
+export const SALT_DEFAULT_ROUNDS = 10;

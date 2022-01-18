@@ -28,7 +28,7 @@ export class User implements dataModels.UserModel {
    * object have next keys :
    * @param id - unique id in uuid format. Type string.
    * @param name - user name. Type string.
-   * @defaultValue param user "USER"
+   * @defaultValue param user ""
    * @param login - user login. Type string.
    * @defaultValue param login "user"
    * @param password - user password. Type string.
@@ -38,7 +38,7 @@ export class User implements dataModels.UserModel {
   constructor(
     {
       id = uuid(),
-      name = "USER",
+      name = "",
       login = "user",
       password = "P@55w0rd",
     } = {} as dataModels.UserModel

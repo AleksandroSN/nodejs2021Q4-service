@@ -16,7 +16,7 @@ const getAllUsers = async (): Promise<dataModels.UserModel[]> =>
  */
 
 const addUser = async (
-  body: dataModels.UserModel
+  body: dataModels.UserModel | dataModels.AuthModel
 ): Promise<dataModels.UserModel> => {
   const user = await getRepository(User).save(body);
   return user;

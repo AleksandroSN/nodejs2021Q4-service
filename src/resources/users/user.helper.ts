@@ -32,5 +32,5 @@ export const userWithoutPassword: SchemaOptsType<UserOptsWithoutPassword> = {
 
 export const validateBody: IValidateBody = {
   ...userWithPassword,
-  required: ["name", "password"],
+  required: ["login", "password"],
 };

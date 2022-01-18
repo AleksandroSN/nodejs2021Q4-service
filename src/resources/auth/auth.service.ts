@@ -1,7 +1,8 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import type { dataModels } from "../../types";
+import { HttpStatus } from "../../utils";
 
-export const authHandler = (req: FastifyRequest, res: FastifyReply) => {
+export const authHandler = async (req: FastifyRequest, res: FastifyReply) => {
   const body = req.body as dataModels.AuthModel;
-  res.send(body);
+  res.status(HttpStatus.CREATED).send(body);
 };

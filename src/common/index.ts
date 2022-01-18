@@ -11,6 +11,8 @@ import {
   POSTGRES_HOST,
 } from "./config";
 
+import { comparePassword, generateHash } from "./hashHelper";
+
 export {
   PORT,
   NODE_ENV,
@@ -22,4 +24,6 @@ export {
   POSTGRES_PORT,
   POSTGRES_USER,
   POSTGRES_HOST,
+  comparePassword,
+  generateHash,
 };
