@@ -35,6 +35,18 @@ const findUser = async (
 };
 
 /**
+ * Get one user on login from PGTable Users
+ * @returns `Promise<dataModels.UserModel>`
+ */
+
+const findUserByLogin = async (
+  login: string
+): Promise<dataModels.UserModel | undefined> => {
+  const user = await getRepository(User).findOne({ login });
+  return user;
+};
+
+/**
  * Update user on id from PGTable Users
  * @returns `Promise<dataModels.UserModel>`
  */
@@ -62,6 +74,7 @@ export const userRepo = {
   getAllUsers,
   addUser,
   findUser,
+  findUserByLogin,
   updateUser,
   deleteUser,
 };
