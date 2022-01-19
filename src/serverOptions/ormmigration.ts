@@ -5,6 +5,7 @@ import {
   POSTGRES_USER,
   POSTGRES_PASSWORD,
   POSTGRES_DB,
+  POSTGRES_HOST,
 } from "../common";
 
 dotenv.config({
@@ -13,7 +14,7 @@ dotenv.config({
 
 export = {
   type: "postgres",
-  host: "localhost",
+  host: POSTGRES_HOST,
   port: POSTGRES_PORT,
   username: POSTGRES_USER,
   password: POSTGRES_PASSWORD,

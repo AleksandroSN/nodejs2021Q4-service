@@ -1,8 +1,4 @@
-import type {
-  FastifyInstance,
-  FastifyServerOptions,
-  HookHandlerDoneFunction,
-} from "fastify";
+import type { FastifyInstance } from "fastify";
 import {
   getAllUsersOpts,
   getUserOpts,
@@ -19,11 +15,7 @@ import {
  * @returns void
  */
 
-export const usersRoute = (
-  app: FastifyInstance,
-  _: FastifyServerOptions,
-  done: HookHandlerDoneFunction
-) => {
+export const usersRoute = async (app: FastifyInstance) => {
   app.get("/users", getAllUsersOpts);
 
   app.get("/users/:userId", getUserOpts);
@@ -33,6 +25,4 @@ export const usersRoute = (
   app.put("/users/:userId", putOpts);
 
   app.delete("/users/:userId", deleteOpts);
-
-  done();
 };

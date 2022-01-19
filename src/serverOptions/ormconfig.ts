@@ -16,6 +16,7 @@ export const DBCONFIG: ConnectionOptions = {
   database: POSTGRES_DB,
   synchronize: false,
   logging: false,
+  migrationsRun: true,
   entities: ["src/resources/**/*{.js,.ts}"],
   migrations: ["src/migration/**/*{.js,.ts}"],
   subscribers: ["src/subscriber/**/*{.js,.ts}"],

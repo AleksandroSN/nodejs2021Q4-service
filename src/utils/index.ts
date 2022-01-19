@@ -10,6 +10,7 @@ import {
 import { validateId } from "./validateId";
 import { findId } from "./findId";
 import { randomName } from "./randomName";
+import { checkPath } from "./checkPath";
 
 export {
   HttpStatus,
@@ -22,4 +23,5 @@ export {
   HOST,
   SALT_DEFAULT_ROUNDS,
   randomName,
+  checkPath,
 };

@@ -1,31 +1,30 @@
 import fastify, { FastifyInstance } from "fastify";
 import fastifyJWT from "fastify-jwt";
 import swagger from "fastify-swagger";
-import { validateId } from "./utils";
+import { checkPath, validateId } from "./utils";
 import { usersRoute } from "./resources/users";
 import { boardsRouter } from "./resources/boards";
 import { tasksRouter } from "./resources/tasks";
 import { authRouter } from "./resources/auth";
 import { logger } from "./logger";
 import { serverOptions, PORT } from "./serverOptions";
-import type { RequestParams } from "./types/requestTypes";
 import { JWT_SECRET_KEY } from "./common";
+import type { RequestParams } from "./types/requestTypes";
 
 export const app: FastifyInstance = fastify(serverOptions);
 
 app.addHook<{ Params: RequestParams }>("onRequest", async (req, res) => {
-  // try {
-  //   await req.jwtVerify();
-  // } catch (err) {
-  //   res.send(err);
-  // }
-  const { params } = req;
+  const { params, url } = req;
   const wrongPath = params["*"];
   const paramValues = Object.values(params);
-  if (wrongPath === undefined && paramValues.length > 0) {
-    validateId(res, paramValues);
+  try {
+    await checkPath(req, url);
+    if (wrongPath === undefined && paramValues.length > 0) {
+      validateId(res, paramValues);
+    }
+  } catch (error) {
+    res.send(error);
   }
-  // done();
 });
 
 app.addHook("preHandler", logger.bodyParser);

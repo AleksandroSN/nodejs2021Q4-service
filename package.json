@@ -18,7 +18,8 @@
     "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace",
     "typeorm": "node --require ./node_modules/ts-node/register ./node_modules/.bin/typeorm",
     "typeorm:generate": "npm run typeorm -- migration:generate --config src/serverOptions/ormmigration.ts --name",
-    "typeorm:run": "npm run typeorm -- migration:run --config src/serverOptions/ormmigration.ts"
+    "typeorm:run": "npm run typeorm -- migration:run --config src/serverOptions/ormmigration.ts",
+    "typeorm:create": "npm run typeorm -- migration:create --config src/serverOptions/ormmigration.ts --name"
   },
   "keywords": [
     "rs",
