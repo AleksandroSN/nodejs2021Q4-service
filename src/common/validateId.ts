@@ -1,6 +1,6 @@
 import type { FastifyReply } from "fastify";
 import { validate as uuidValidate } from "uuid";
-import { HttpStatus } from "./constants";
+import { HttpStatus } from "../utils";
 
 /**
  * Validate id, if wrond send response with message

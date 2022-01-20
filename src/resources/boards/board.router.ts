@@ -1,8 +1,4 @@
-import type {
-  FastifyInstance,
-  FastifyServerOptions,
-  HookHandlerDoneFunction,
-} from "fastify";
+import type { FastifyInstance } from "fastify";
 import {
   getAllBoardsOpts,
   getBoardOpts,
@@ -14,16 +10,10 @@ import {
 /**
  * middleware routes for boards
  * @param app - Fastify server instance
- * @param _ - Fastify Server options, unuse
- * @param done - callback done function
  * @returns void
  */
 
-export const boardsRouter = (
-  app: FastifyInstance,
-  _: FastifyServerOptions,
-  done: HookHandlerDoneFunction
-) => {
+export const boardsRouter = async (app: FastifyInstance): Promise<void> => {
   app.get("/boards", getAllBoardsOpts);
 
   app.get("/boards/:boardId", getBoardOpts);
@@ -33,6 +23,4 @@ export const boardsRouter = (
   app.put("/boards/:boardId", putBoardOpts);
 
   app.delete("/boards/:boardId", deleteBoardOpts);
-
-  done();
 };

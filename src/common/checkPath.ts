@@ -1,5 +1,4 @@
 import type { FastifyRequest } from "fastify";
-import {} from "fastify-jwt";
 
 export const checkPath = async (
   req: FastifyRequest,

@@ -1,16 +1,6 @@
-import type {
-  FastifyInstance,
-  FastifyServerOptions,
-  HookHandlerDoneFunction,
-} from "fastify";
+import type { FastifyInstance } from "fastify";
 import { postAuthOptions } from "./auth.options";
 
-export const authRouter = (
-  app: FastifyInstance,
-  _: FastifyServerOptions,
-  done: HookHandlerDoneFunction
-) => {
+export const authRouter = async (app: FastifyInstance): Promise<void> => {
   app.post("/login", postAuthOptions);
-
-  done();
 };

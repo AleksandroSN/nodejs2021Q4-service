@@ -10,12 +10,10 @@ import {
 /**
  * middleware routes for users
  * @param app - Fastify server instance
- * @param _ - Fastify Server options, unuse
- * @param done - callback done function
  * @returns void
  */
 
-export const usersRoute = async (app: FastifyInstance) => {
+export const usersRoute = async (app: FastifyInstance): Promise<void> => {
   app.get("/users", getAllUsersOpts);
 
   app.get("/users/:userId", getUserOpts);

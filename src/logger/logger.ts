@@ -2,9 +2,7 @@ import fs from "fs";
 import type {
   FastifyInstance,
   FastifyLoggerOptions,
-  FastifyReply,
   FastifyRequest,
-  HookHandlerDoneFunction,
 } from "fastify";
 import { errorLogFile, invalidsPort } from "../utils";
 
@@ -35,15 +33,10 @@ export const getPinoConfig = (
   };
 };
 
-export const bodyParser = (
-  req: FastifyRequest,
-  _: FastifyReply,
-  done: HookHandlerDoneFunction
-): void => {
+export const bodyParser = async (req: FastifyRequest): Promise<void> => {
   if (req.body) {
     req.log.info({ body: req.body }, "parsed body");
   }
-  done();
 };
 
 export const portValidation = (port: string, app: FastifyInstance) => {

@@ -12,6 +12,7 @@ import {
 } from "./config";
 
 import { comparePassword, generateHash } from "./hashHelper";
+import { validationRequest } from "./validationRequest";
 
 export {
   PORT,
@@ -26,4 +27,5 @@ export {
   POSTGRES_HOST,
   comparePassword,
   generateHash,
+  validationRequest,
 };
