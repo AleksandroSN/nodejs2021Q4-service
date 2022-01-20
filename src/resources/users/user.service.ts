@@ -3,7 +3,6 @@ import type { RequestParams, dataModels } from "../../types";
 import { HttpStatus, findId, randomName } from "../../utils";
 import { userRepo } from "./user.typeorm.repository";
 import { resetUser } from "../tasks";
-import { generateHash } from "../../common";
 
 /**
  * find element in db.
@@ -62,13 +61,11 @@ export const getUser = async (req: FastifyRequest, res: FastifyReply) => {
 export const addUser = async (req: FastifyRequest, res: FastifyReply) => {
   const body = req.body as dataModels.UserModel;
   const userName = randomName(body.name);
-  const cryptPassword = await generateHash(body.password);
-
-  const userWithSalt = {
+  const userWithName = {
     ...body,
-    ...{ password: cryptPassword, name: userName },
+    ...{ name: userName },
   };
-  const newUser = await userRepo.addUser(userWithSalt);
+  const newUser = await userRepo.addUser(userWithName);
 
   await res.code(HttpStatus.CREATED).send(newUser);
 };

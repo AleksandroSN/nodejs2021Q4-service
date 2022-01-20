@@ -19,10 +19,10 @@ export const DBCONFIG: ConnectionOptions = {
   migrationsRun: true,
   entities: ["src/resources/**/*{.js,.ts}"],
   migrations: ["src/migration/**/*{.js,.ts}"],
-  subscribers: ["src/subscriber/**/*{.js,.ts}"],
+  subscribers: ["src/resources/**/*{.js,.ts}"],
   cli: {
     entitiesDir: "src/resources",
     migrationsDir: "src/migration",
-    subscribersDir: "src/subscriber",
+    subscribersDir: "src/resources",
   },
 };
