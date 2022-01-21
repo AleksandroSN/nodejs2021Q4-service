@@ -7,7 +7,7 @@ import {
   POSTGRES_HOST,
 } from "../common";
 
-export const DBCONFIG: ConnectionOptions = {
+const DBCONFIG: ConnectionOptions = {
   type: "postgres",
   host: POSTGRES_HOST,
   port: Number(POSTGRES_PORT),
@@ -17,6 +17,7 @@ export const DBCONFIG: ConnectionOptions = {
   synchronize: false,
   logging: false,
   migrationsRun: true,
+  dropSchema: true,
   entities: ["src/resources/**/*{.js,.ts}"],
   migrations: ["src/migration/**/*{.js,.ts}"],
   subscribers: ["src/resources/**/*{.js,.ts}"],
@@ -26,3 +27,5 @@ export const DBCONFIG: ConnectionOptions = {
     subscribersDir: "src/resources",
   },
 };
+
+export default DBCONFIG;

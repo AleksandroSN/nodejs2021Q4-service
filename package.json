@@ -16,10 +16,10 @@
     "start:prod": "nodemon -L --exitcrash dist/server.js",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
     "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace",
-    "typeorm": "node --require ./node_modules/ts-node/register ./node_modules/.bin/typeorm",
-    "typeorm:generate": "npm run typeorm -- migration:generate --config src/serverOptions/ormmigration.ts --name",
-    "typeorm:run": "npm run typeorm -- migration:run --config src/serverOptions/ormmigration.ts",
-    "typeorm:create": "npm run typeorm -- migration:create --config src/serverOptions/ormmigration.ts --name"
+    "typeorm": "ts-node-transpile-only ./node_modules/typeorm/cli.js --config ./src/serverOptions/ormconfig.ts",
+    "typeorm:generate": "npm run typeorm migration:generate -- --name",
+    "typeorm:run": "npm run typeorm migration:run",
+    "typeorm:create": "npm run typeorm migration:create -- --name"
   },
   "keywords": [
     "rs",

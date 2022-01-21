@@ -9,6 +9,9 @@ import {
   POSTGRES_PORT,
   POSTGRES_USER,
   POSTGRES_HOST,
+  SEED_LOGIN,
+  SEED_NAME,
+  SEED_PASSWORD,
 } from "./config";
 
 import { comparePassword, generateHash } from "./hashHelper";
@@ -25,6 +28,9 @@ export {
   POSTGRES_PORT,
   POSTGRES_USER,
   POSTGRES_HOST,
+  SEED_LOGIN,
+  SEED_NAME,
+  SEED_PASSWORD,
   comparePassword,
   generateHash,
   validationRequest,

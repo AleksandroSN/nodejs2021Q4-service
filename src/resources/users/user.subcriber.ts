@@ -3,6 +3,7 @@ import {
   EntitySubscriberInterface,
   EventSubscriber,
   InsertEvent,
+  UpdateEvent,
 } from "typeorm";
 import { generateHash } from "../../common";
 import { User } from "./user.model";
@@ -17,5 +18,14 @@ export class UserSubscriber implements EntitySubscriberInterface<User> {
     const cryptPassword = await generateHash(evt.entity.password);
     // eslint-disable-next-line no-param-reassign
     evt.entity.password = cryptPassword;
+  }
+
+  async beforeUpdate(evt: UpdateEvent<User>) {
+    const { password } = evt.entity as User;
+    const cryptPassword = await generateHash(password);
+    if (evt.entity) {
+      // eslint-disable-next-line no-param-reassign
+      evt.entity["password"] = cryptPassword;
+    }
   }
 }

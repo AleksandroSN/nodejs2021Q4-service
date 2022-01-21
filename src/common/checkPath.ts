@@ -3,10 +3,8 @@ import type { FastifyRequest } from "fastify";
 export const checkPath = async (
   req: FastifyRequest,
   path: string
-): Promise<null | void> => {
+): Promise<void> => {
   const RegEx = /(?:\/users|\/boards)/i;
   const pathIsRestricted = RegEx.test(path);
-  if (!req) return null;
   if (pathIsRestricted) await req.jwtVerify();
-  return null;
 };

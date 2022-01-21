@@ -16,6 +16,9 @@ const envConfig = [
   "POSTGRES_PASSWORD",
   "POSTGRES_DB",
   "POSTGRES_HOST",
+  "SEED_LOGIN",
+  "SEED_NAME",
+  "SEED_PASSWORD",
 ] as const;
 
 type Env = Record<typeof envConfig[number], string>;
@@ -50,4 +53,7 @@ export const {
   POSTGRES_PORT,
   POSTGRES_USER,
   POSTGRES_HOST,
+  SEED_LOGIN,
+  SEED_NAME,
+  SEED_PASSWORD,
 } = config;
