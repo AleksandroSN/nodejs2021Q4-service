@@ -86,8 +86,9 @@ To work with the pgAdmin in docker, use the next flow:
 
    - Enter anything connection name
    - Host `postgres`
-   - Username from .env file
-   - Password from .env file
+   - Username from .env file POSTGRES_USERNAME
+   - Password from .env file POSTGRES_PASSWORD
+   - Port from .env file POSTGRES_PORT
 
 3. Browse servers
 
