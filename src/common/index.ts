@@ -12,6 +12,7 @@ import {
   SEED_LOGIN,
   SEED_NAME,
   SEED_PASSWORD,
+  MIGRATIONS_RUN,
 } from "./config";
 
 import { comparePassword, generateHash } from "./hashHelper";
@@ -31,6 +32,7 @@ export {
   SEED_LOGIN,
   SEED_NAME,
   SEED_PASSWORD,
+  MIGRATIONS_RUN,
   comparePassword,
   generateHash,
   validationRequest,

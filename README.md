@@ -79,9 +79,9 @@ To access pgadmin from docker go to [http://localhost:5050](http://localhost:505
 email : `admin@admin.com` <br>
 password: `root` <br>
 
-To work with the program in docker, use the next flow:
+To work with the pgAdmin in docker, use the next flow:
 
-1. Authorization
+1. Authorization (admin@admin.com / root)
 2. Add new server
 
    - Enter anything connection name
@@ -107,12 +107,12 @@ levels logs :
 - 3: debug
 - 4: all
 
-if level log === 0, all errors logs write in errorLog.txt
+if level log === 0, all errors logs write in errorLog.log
 
 ## Running application
 
 ```
-npm start
+npm start:dev
 ```
 
 After starting the app on port (4000 as default) you can open

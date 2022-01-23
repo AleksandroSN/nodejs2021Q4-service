@@ -5,6 +5,7 @@ import {
   POSTGRES_PASSWORD,
   POSTGRES_DB,
   POSTGRES_HOST,
+  MIGRATIONS_RUN,
 } from "../common";
 
 const DBCONFIG: ConnectionOptions = {
@@ -16,8 +17,8 @@ const DBCONFIG: ConnectionOptions = {
   database: POSTGRES_DB,
   synchronize: false,
   logging: false,
-  migrationsRun: true,
-  dropSchema: true,
+  migrationsRun: Boolean(+MIGRATIONS_RUN),
+  dropSchema: false,
   entities: ["src/resources/**/*{.js,.ts}"],
   migrations: ["src/migration/**/*{.js,.ts}"],
   subscribers: ["src/resources/**/*{.js,.ts}"],

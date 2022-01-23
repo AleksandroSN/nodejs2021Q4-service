@@ -19,6 +19,7 @@ const envConfig = [
   "SEED_LOGIN",
   "SEED_NAME",
   "SEED_PASSWORD",
+  "MIGRATIONS_RUN",
 ] as const;
 
 type Env = Record<typeof envConfig[number], string>;
@@ -56,4 +57,5 @@ export const {
   SEED_LOGIN,
   SEED_NAME,
   SEED_PASSWORD,
+  MIGRATIONS_RUN,
 } = config;
