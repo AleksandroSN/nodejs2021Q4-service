@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Task } from "../tasks/tasks.entity";
 import { ColumnModel } from "./types";
 
 /**
@@ -16,4 +17,7 @@ export class Board {
 
   @Column("simple-json")
   columns: ColumnModel[];
+
+  @OneToMany(() => Task, (task) => task.boardId)
+  task: Task | undefined;
 }

@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { DeleteResult, Repository } from "typeorm";
 import { CreateTaskDTO } from "./dto/create-task.dto";
@@ -16,7 +16,11 @@ export class TasksService {
   }
 
   async getTask(id: string): Promise<Task> {
-    return this.taskRepository.findOne(id);
+    const task = await this.taskRepository.findOne(id);
+    if (!task) {
+      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
+    }
+    return task;
   }
 
   async addTask(dto: CreateTaskDTO, boardId: string): Promise<Task> {
@@ -32,19 +36,5 @@ export class TasksService {
 
   async deleteTask(id: string): Promise<DeleteResult> {
     return this.taskRepository.delete(id);
-  }
-
-  async deleteAllTasksOnBoardId(boardId: string): Promise<void> {
-    const tasksWithBoardId = await this.taskRepository.find({ boardId });
-    await this.taskRepository.remove(tasksWithBoardId);
-  }
-
-  async modifyUserIdInTask(userId: string): Promise<void> {
-    const tasksWithBoardId = await this.taskRepository.find({ userId });
-    const modifyTask = tasksWithBoardId.map((task) => ({
-      ...task,
-      ...{ userId: null },
-    })) as Task[];
-    await this.taskRepository.save(modifyTask);
   }
 }

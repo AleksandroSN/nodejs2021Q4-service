@@ -1,6 +1,7 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { DeleteResult, Repository } from "typeorm";
+import { Repository } from "typeorm";
+import { Task } from "../tasks/tasks.entity";
 import { Board } from "./boards.entity";
 import { CreateBoardDTO } from "./dto/create-board.dto";
 import { UpdateBoardDTO } from "./dto/update-board.dto";
@@ -8,7 +9,8 @@ import { UpdateBoardDTO } from "./dto/update-board.dto";
 @Injectable()
 export class BoardsService {
   constructor(
-    @InjectRepository(Board) private boardsRepository: Repository<Board>
+    @InjectRepository(Board) private boardsRepository: Repository<Board>,
+    @InjectRepository(Task) private taskRepository: Repository<Task>
   ) {}
 
   async getAllBoards(): Promise<Board[]> {
@@ -16,7 +18,11 @@ export class BoardsService {
   }
 
   async findBoard(id: string): Promise<Board> {
-    return this.boardsRepository.findOne(id);
+    const board = await this.boardsRepository.findOne(id);
+    if (!board) {
+      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
+    }
+    return board;
   }
 
   async addBoard(dto: CreateBoardDTO): Promise<Board> {
@@ -29,8 +35,11 @@ export class BoardsService {
     return this.boardsRepository.save(updatedBoard);
   }
 
-  async deleteBoard(id: string): Promise<DeleteResult> {
-    // deleteAllTasks
-    return this.boardsRepository.delete(id);
+  async deleteBoard(id: string): Promise<void> {
+    const tasksWithBoardId = await this.taskRepository.find({
+      where: { boardId: id },
+    });
+    await this.taskRepository.remove(tasksWithBoardId);
+    await this.boardsRepository.delete(id);
   }
 }

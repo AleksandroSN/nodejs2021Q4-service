@@ -1,6 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-// import { Board } from "../boards/boards.entity";
-// import { User } from "../users/users.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Board } from "../boards/boards.entity";
+import { User } from "../users/users.entity";
 
 /**
  * Entity Task for TypeORM.
@@ -30,9 +30,9 @@ export class Task {
   @Column({ type: "varchar", nullable: true })
   boardId: string | null;
 
-  // @ManyToOne(() => User, (user) => user.id, { onDelete: "SET NULL" })
-  // user: User | undefined;
+  @ManyToOne(() => User, (user) => user.id, { onDelete: "SET NULL" })
+  user: User | undefined;
 
-  // @ManyToOne(() => Board, (board) => board.id, { onDelete: "CASCADE" })
-  // board: Board | undefined;
+  @ManyToOne(() => Board, (board) => board.id, { onDelete: "CASCADE" })
+  board: Board | undefined;
 }

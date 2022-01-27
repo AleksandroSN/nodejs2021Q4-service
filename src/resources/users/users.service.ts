@@ -1,13 +1,15 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { randomName } from "src/utils";
-import { Repository, DeleteResult } from "typeorm";
+import { Repository } from "typeorm";
+import { Task } from "../tasks/tasks.entity";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { User } from "./users.entity";
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User) private usersRepository: Repository<User>
+    @InjectRepository(User) private usersRepository: Repository<User>,
+    @InjectRepository(Task) private taskRepository: Repository<Task>
   ) {}
 
   async getAllUsers(): Promise<User[]> {
@@ -25,7 +27,11 @@ export class UsersService {
   }
 
   async findUser(id: string): Promise<User> {
-    return this.usersRepository.findOne(id);
+    const user = await this.usersRepository.findOne(id);
+    if (!user) {
+      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
+    }
+    return user;
   }
 
   async updateUser(id: string, dto: CreateUserDTO): Promise<User> {
@@ -35,8 +41,15 @@ export class UsersService {
     return this.usersRepository.save(userWithoutPass);
   }
 
-  async deleteUser(id: string): Promise<DeleteResult> {
-    // resetUser
-    return this.usersRepository.delete(id);
+  async deleteUser(id: string): Promise<void> {
+    const tasksWithUserId = await this.taskRepository.find({
+      where: { userId: id },
+    });
+    const modifyTask = tasksWithUserId.map((task) => ({
+      ...task,
+      ...{ userId: null },
+    })) as Task[];
+    await this.taskRepository.save(modifyTask);
+    await this.usersRepository.delete(id);
   }
 }

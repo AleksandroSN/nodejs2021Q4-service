@@ -3,10 +3,12 @@ import {
   BeforeUpdate,
   Column,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Exclude } from "class-transformer";
 import { generateHash } from "src/common";
+import { Task } from "../tasks/tasks.entity";
 
 /**
  * Entity User for TypeORM.
@@ -28,6 +30,9 @@ export class User {
   @Column({ type: "varchar", length: 255, nullable: true })
   @Exclude()
   password: string;
+
+  @OneToMany(() => Task, (task) => task.userId)
+  task: Task | undefined;
 
   @BeforeInsert()
   async hashPassword() {

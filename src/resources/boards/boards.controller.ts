@@ -7,7 +7,6 @@ import {
   Post,
   Put,
 } from "@nestjs/common";
-import { DeleteResult } from "typeorm";
 import { Board } from "./boards.entity";
 import { BoardsService } from "./boards.service";
 import { CreateBoardDTO } from "./dto/create-board.dto";
@@ -41,7 +40,7 @@ export class BoardsController {
   }
 
   @Delete(":boardid")
-  deleteOne(@Param("boardid") id: string): Promise<DeleteResult> {
+  deleteOne(@Param("boardid") id: string): Promise<void> {
     return this.boardsService.deleteBoard(id);
   }
 }
