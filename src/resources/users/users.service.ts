@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { randomName } from "src/utils";
 import { Repository, DeleteResult } from "typeorm";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { User } from "./users.entity";
@@ -14,7 +15,12 @@ export class UsersService {
   }
 
   async addUser(dto: CreateUserDTO): Promise<User> {
-    const newUser = new User(dto);
+    const userName = randomName(dto.name);
+    const userWithName = {
+      ...dto,
+      ...{ name: userName },
+    } as User;
+    const newUser = new User(userWithName);
     return this.usersRepository.save(newUser);
   }
 
@@ -30,6 +36,7 @@ export class UsersService {
   }
 
   async deleteUser(id: string): Promise<DeleteResult> {
+    // resetUser
     return this.usersRepository.delete(id);
   }
 }

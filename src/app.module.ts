@@ -5,14 +5,16 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import {
   // AuthModule,
-  // BoardsModule,
+  BoardsModule,
   // FilesModule,
-  // TasksModule,
+  TasksModule,
   UsersModule,
 } from "./resources";
 
 import config from "./configs/config";
 import { User } from "./resources/users/users.entity";
+import { Board } from "./resources/boards/boards.entity";
+import { Task } from "./resources/tasks/tasks.entity";
 
 @Module({
   imports: [
@@ -31,7 +33,7 @@ import { User } from "./resources/users/users.entity";
       logging: false,
       migrationsRun: false,
       dropSchema: false,
-      entities: [User],
+      entities: [User, Board, Task],
       // migrations: ["src/migration/**/*{.js,.ts}"],
       // subscribers: ["dist/resources/**/*{.js,.ts}"],
       // cli: {
@@ -41,8 +43,8 @@ import { User } from "./resources/users/users.entity";
       // },
     }),
     UsersModule,
-    // BoardsModule,
-    // TasksModule,
+    BoardsModule,
+    TasksModule,
     // AuthModule,
     // FilesModule,
   ],
