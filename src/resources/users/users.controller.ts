@@ -8,7 +8,9 @@ import {
   Post,
   Put,
   UseInterceptors,
+  UsePipes,
 } from "@nestjs/common";
+import { ValidationUserPipe } from "../../pipes";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { UpdateUserDTO } from "./dto/update-user.dto";
 import { User } from "./users.entity";
@@ -30,12 +32,15 @@ export class UsersController {
   }
 
   @Post()
+  @UsePipes(ValidationUserPipe)
   addUser(@Body() newUser: CreateUserDTO) {
     return this.userService.addUser(newUser);
   }
 
   @Put(":id")
-  updateOne(@Param("id") id: string, @Body() updateUser: UpdateUserDTO) {
+  // TODO validation update user
+  // @UsePipes(ValidationUserPipe)
+  updateOne(@Body() updateUser: UpdateUserDTO, @Param("id") id: string) {
     return this.userService.updateUser(id, updateUser);
   }
 

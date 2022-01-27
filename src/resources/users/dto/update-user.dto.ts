@@ -1,5 +1,11 @@
-export interface UpdateUserDTO {
-  readonly name: string;
-  readonly login: string;
-  readonly password: string;
+import { IsString } from "class-validator";
+export class UpdateUserDTO {
+  @IsString()
+  name: string;
+
+  @IsString()
+  password: string;
+
+  @IsString()
+  login: string;
 }
