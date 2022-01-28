@@ -11,36 +11,20 @@ import {
   UsersModule,
 } from "./resources";
 
-import config from "./configs/config";
-import { User } from "./resources/users/users.entity";
-import { Board } from "./resources/boards/boards.entity";
-import { Task } from "./resources/tasks/tasks.entity";
+import appConfig from "./configs/appConfig";
+import databaseConfig from "./configs/database.config";
+import { DatabaseConfig } from "./configs/database.config.module";
 
 @Module({
   imports: [
     ConfigModule.forRoot({
+      isGlobal: true,
       envFilePath: ".env",
-      load: [config],
+      load: [appConfig, databaseConfig],
     }),
-    TypeOrmModule.forRoot({
-      type: "postgres",
-      host: "localhost",
-      port: 5000,
-      username: "postgres",
-      password: "qwerty3355",
-      database: "fastify_db",
-      synchronize: true,
-      logging: false,
-      migrationsRun: false,
-      dropSchema: false,
-      entities: [User, Board, Task],
-      // migrations: ["src/migration/**/*{.js,.ts}"],
-      // subscribers: ["dist/resources/**/*{.js,.ts}"],
-      // cli: {
-      //   entitiesDir: "src/resources",
-      //   migrationsDir: "src/migration",
-      //   subscribersDir: "src/resources",
-      // },
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useClass: DatabaseConfig,
     }),
     UsersModule,
     BoardsModule,

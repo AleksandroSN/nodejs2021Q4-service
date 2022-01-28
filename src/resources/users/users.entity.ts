@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Exclude } from "class-transformer";
-import { generateHash } from "src/common";
+import { generateHash } from "../../common";
 import { Task } from "../tasks/tasks.entity";
 
 /**
