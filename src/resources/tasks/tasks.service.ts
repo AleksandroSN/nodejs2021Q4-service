@@ -1,22 +1,22 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { DeleteResult, Repository } from "typeorm";
 import { CreateTaskDTO } from "./dto/create-task.dto";
 import { UpdateTaskDTO } from "./dto/update-task.dto";
+import { TaskRepository } from "./task.repository";
 import { Task } from "./tasks.entity";
 
 @Injectable()
 export class TasksService {
   constructor(
-    @InjectRepository(Task) private taskRepository: Repository<Task>
+    @InjectRepository(TaskRepository) private taskRepository: TaskRepository
   ) {}
 
   async getAllTasks(): Promise<Task[]> {
-    return this.taskRepository.find();
+    return this.taskRepository.findAllTasks();
   }
 
   async getTask(id: string): Promise<Task> {
-    const task = await this.taskRepository.findOne(id);
+    const task = await this.taskRepository.findTaskById(id);
     if (!task) {
       throw new HttpException("User not found", HttpStatus.NOT_FOUND);
     }
@@ -24,17 +24,25 @@ export class TasksService {
   }
 
   async addTask(dto: CreateTaskDTO, boardId: string): Promise<Task> {
-    const taskWithBoardId = { ...dto, ...{ boardId } } as Task;
-    return this.taskRepository.save(taskWithBoardId);
+    return this.taskRepository.createTask(dto, boardId);
   }
 
   async updateTask(id: string, dto: UpdateTaskDTO): Promise<Task> {
-    const task = await this.taskRepository.findOne(id);
-    const updatedTask = { ...task, ...dto } as Task;
-    return this.taskRepository.save(updatedTask);
+    const task = await this.taskRepository.findTaskById(id);
+    if (!task) {
+      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
+    }
+    return this.taskRepository.updateTask(id, dto);
   }
 
-  async deleteTask(id: string): Promise<DeleteResult> {
-    return this.taskRepository.delete(id);
+  async deleteTask(id: string): Promise<string> {
+    const task = await this.taskRepository.findTaskById(id);
+    if (!task) {
+      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
+    }
+    const result = await this.taskRepository.deleteTask(id);
+    if (result.affected > 0) {
+      return `Task with id ${id} is deleted`;
+    }
   }
 }

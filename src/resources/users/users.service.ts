@@ -1,19 +1,22 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { randomName } from "src/utils";
-import { Repository } from "typeorm";
-import { Task } from "../tasks/tasks.entity";
+import { TaskRepository } from "../tasks/task.repository";
 import { CreateUserDTO } from "./dto/create-user.dto";
+import { UpdateUserDTO } from "./dto/update-user.dto";
 import { User } from "./users.entity";
+import { UserRepository } from "./users.repository";
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User) private usersRepository: Repository<User>,
-    @InjectRepository(Task) private taskRepository: Repository<Task>
+    @InjectRepository(UserRepository)
+    private readonly usersRepository: UserRepository,
+    @InjectRepository(TaskRepository)
+    private readonly taskRepository: TaskRepository
   ) {}
 
   async getAllUsers(): Promise<User[]> {
-    return this.usersRepository.find();
+    return this.usersRepository.findAllUsers();
   }
 
   async addUser(dto: CreateUserDTO): Promise<User> {
@@ -22,34 +25,34 @@ export class UsersService {
       ...dto,
       ...{ name: userName },
     } as User;
-    const newUser = new User(userWithName);
-    return this.usersRepository.save(newUser);
+    return this.usersRepository.createUser(userWithName);
   }
 
   async findUser(id: string): Promise<User> {
-    const user = await this.usersRepository.findOne(id);
+    const user = await this.usersRepository.findUserById(id);
     if (!user) {
       throw new HttpException("User not found", HttpStatus.NOT_FOUND);
     }
     return user;
   }
 
-  async updateUser(id: string, dto: CreateUserDTO): Promise<User> {
-    const user = await this.usersRepository.findOne(id);
-    const updatedUser = { ...user, ...dto } as User;
-    const userWithoutPass = new User(updatedUser);
-    return this.usersRepository.save(userWithoutPass);
+  async updateUser(id: string, dto: UpdateUserDTO): Promise<User> {
+    const user = await this.usersRepository.findUserById(id);
+    if (!user) {
+      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
+    }
+    return this.usersRepository.updateUser(id, dto);
   }
 
-  async deleteUser(id: string): Promise<void> {
-    const tasksWithUserId = await this.taskRepository.find({
-      where: { userId: id },
-    });
-    const modifyTask = tasksWithUserId.map((task) => ({
-      ...task,
-      ...{ userId: null },
-    })) as Task[];
-    await this.taskRepository.save(modifyTask);
-    await this.usersRepository.delete(id);
+  async deleteUser(id: string): Promise<string> {
+    const user = await this.usersRepository.findUserById(id);
+    if (!user) {
+      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
+    }
+    await this.taskRepository.updateUsersIds(id);
+    const result = await this.usersRepository.deleteUser(id);
+    if (result.affected > 0) {
+      return `User with id ${id} is deleted`;
+    }
   }
 }

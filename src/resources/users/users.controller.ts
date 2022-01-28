@@ -27,25 +27,28 @@ export class UsersController {
   }
 
   @Get(":id")
-  findOne(@Param("id") id: string) {
+  findOne(@Param("id") id: string): Promise<User> {
     return this.userService.findUser(id);
   }
 
   @Post()
   @UsePipes(ValidationUserPipe)
-  addOne(@Body() newUser: CreateUserDTO) {
+  addOne(@Body() newUser: CreateUserDTO): Promise<User> {
     return this.userService.addUser(newUser);
   }
 
   @Put(":id")
   // TODO validation update user
   // @UsePipes(ValidationUserPipe)
-  updateOne(@Body() updateUser: UpdateUserDTO, @Param("id") id: string) {
+  updateOne(
+    @Body() updateUser: UpdateUserDTO,
+    @Param("id") id: string
+  ): Promise<User> {
     return this.userService.updateUser(id, updateUser);
   }
 
   @Delete(":id")
-  deleteOne(@Param("id") id: string) {
+  deleteOne(@Param("id") id: string): Promise<string> {
     return this.userService.deleteUser(id);
   }
 }
