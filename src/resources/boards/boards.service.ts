@@ -21,7 +21,7 @@ export class BoardsService {
   async findBoard(id: string): Promise<Board> {
     const board = await this.boardsRepository.findBoardById(id);
     if (!board) {
-      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
+      throw new HttpException("Board not found", HttpStatus.NOT_FOUND);
     }
     return board;
   }
@@ -33,7 +33,7 @@ export class BoardsService {
   async updateBoard(id: string, dto: UpdateBoardDTO): Promise<Board> {
     const board = await this.boardsRepository.findBoardById(id);
     if (!board) {
-      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
+      throw new HttpException("Board not found", HttpStatus.NOT_FOUND);
     }
     return this.boardsRepository.updateBoard(id, dto);
   }
@@ -41,7 +41,7 @@ export class BoardsService {
   async deleteBoard(id: string): Promise<string> {
     const board = await this.boardsRepository.findBoardById(id);
     if (!board) {
-      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
+      throw new HttpException("Board not found", HttpStatus.NOT_FOUND);
     }
     await this.taskRepository.deleteAllTask(id);
     const result = await this.boardsRepository.deleteBoard(id);

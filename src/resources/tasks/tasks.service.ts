@@ -18,7 +18,7 @@ export class TasksService {
   async getTask(id: string): Promise<Task> {
     const task = await this.taskRepository.findTaskById(id);
     if (!task) {
-      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
+      throw new HttpException("Task not found", HttpStatus.NOT_FOUND);
     }
     return task;
   }
@@ -30,7 +30,7 @@ export class TasksService {
   async updateTask(id: string, dto: UpdateTaskDTO): Promise<Task> {
     const task = await this.taskRepository.findTaskById(id);
     if (!task) {
-      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
+      throw new HttpException("Task not found", HttpStatus.NOT_FOUND);
     }
     return this.taskRepository.updateTask(id, dto);
   }
@@ -38,7 +38,7 @@ export class TasksService {
   async deleteTask(id: string): Promise<string> {
     const task = await this.taskRepository.findTaskById(id);
     if (!task) {
-      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
+      throw new HttpException("Task not found", HttpStatus.NOT_FOUND);
     }
     const result = await this.taskRepository.deleteTask(id);
     if (result.affected > 0) {
