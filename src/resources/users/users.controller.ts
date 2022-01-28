@@ -5,18 +5,22 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Post,
   Put,
+  UseGuards,
   UseInterceptors,
   UsePipes,
 } from "@nestjs/common";
 import { ValidationUserPipe } from "../../pipes";
+import { JwtGuard } from "../auth/jwt-guard";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { UpdateUserDTO } from "./dto/update-user.dto";
 import { User } from "./users.entity";
 import { UsersService } from "./users.service";
 
 @Controller("users")
+@UseGuards(JwtGuard)
 @UseInterceptors(ClassSerializerInterceptor)
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
@@ -27,7 +31,7 @@ export class UsersController {
   }
 
   @Get(":id")
-  findOne(@Param("id") id: string): Promise<User> {
+  findOne(@Param("id", ParseUUIDPipe) id: string): Promise<User> {
     return this.userService.findUser(id);
   }
 
@@ -42,13 +46,13 @@ export class UsersController {
   // @UsePipes(ValidationUserPipe)
   updateOne(
     @Body() updateUser: UpdateUserDTO,
-    @Param("id") id: string
+    @Param("id", ParseUUIDPipe) id: string
   ): Promise<User> {
     return this.userService.updateUser(id, updateUser);
   }
 
   @Delete(":id")
-  deleteOne(@Param("id") id: string): Promise<string> {
+  deleteOne(@Param("id", ParseUUIDPipe) id: string): Promise<string> {
     return this.userService.deleteUser(id);
   }
 }

@@ -6,13 +6,16 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from "@nestjs/common";
+import { JwtGuard } from "../auth/jwt-guard";
 import { Board } from "./boards.entity";
 import { BoardsService } from "./boards.service";
 import { CreateBoardDTO } from "./dto/create-board.dto";
 import { UpdateBoardDTO } from "./dto/update-board.dto";
 
 @Controller("boards")
+@UseGuards(JwtGuard)
 export class BoardsController {
   constructor(private readonly boardsService: BoardsService) {}
 

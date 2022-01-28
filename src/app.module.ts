@@ -4,7 +4,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import {
-  // AuthModule,
+  AuthModule,
   BoardsModule,
   // FilesModule,
   TasksModule,
@@ -29,7 +29,7 @@ import { DatabaseConfig } from "./configs/database.config.module";
     UsersModule,
     BoardsModule,
     TasksModule,
-    // AuthModule,
+    AuthModule,
     // FilesModule,
   ],
   controllers: [AppController],

@@ -10,7 +10,7 @@ import { User } from "../resources/users/users.entity";
 
 export class Seed1643375853319 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    const migrationsRunEnv = process.env.MIGRATIONS_RUN === "true";
+    const migrationsRunEnv = process.env.TYPEORM_MIGRATIONS_RUN === "true";
     const hashedPassword = await generateHash(process.env.SEED_PASSWORD);
     const isHashedPassword = migrationsRunEnv
       ? process.env.SEED_PASSWORD

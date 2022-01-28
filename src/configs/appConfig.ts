@@ -7,6 +7,6 @@ export default registerAs(
     PORT: process.env.PORT || 3000,
     BASE_HOST: process.env.BASE_HOST || "localhost",
     USE_FASTIFY: process.env.USE_FASTIFY || "false",
-    JWT_SECRET_KEY: process.env.JWT_SECRET_KEY || "",
+    JWT_SECRET_KEY: process.env.JWT_SECRET_KEY || "SECRET",
   })
 );

@@ -13,6 +13,10 @@ export class UserRepository extends Repository<User> {
     return await this.findOne(id);
   }
 
+  async findUserByLogin(login: string): Promise<User> {
+    return await this.findOne({ login });
+  }
+
   async createUser(dto: CreateUserDTO): Promise<User> {
     const newUser = new User(dto);
     return await this.save(newUser);

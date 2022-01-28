@@ -36,6 +36,17 @@ export class UsersService {
     return user;
   }
 
+  async findUserByLogin(login: string): Promise<User> {
+    const user = await this.usersRepository.findUserByLogin(login);
+    if (!user) {
+      throw new HttpException(
+        "Bad combination user/password",
+        HttpStatus.BAD_REQUEST
+      );
+    }
+    return user;
+  }
+
   async updateUser(id: string, dto: UpdateUserDTO): Promise<User> {
     const user = await this.usersRepository.findUserById(id);
     if (!user) {
