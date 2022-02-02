@@ -1,4 +1,12 @@
-import { Controller, Get, Param, Post, Req, Res } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Req,
+  Res,
+  StreamableFile,
+} from "@nestjs/common";
 import { FilesService } from "./files.service";
 
 @Controller("files")
@@ -11,7 +19,7 @@ export class FilesController {
   }
 
   @Get(":filename")
-  getFile(@Param("filename") filename: string) {
+  getFile(@Param("filename") filename: string): StreamableFile {
     return this.filesSerivice.getFile(filename);
   }
 }

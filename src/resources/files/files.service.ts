@@ -1,39 +1,46 @@
-import { Injectable } from "@nestjs/common";
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  StreamableFile,
+} from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
+import { createReadStream } from "fs";
 import * as formidable from "formidable";
+import * as path from "path";
 import { AppConfig } from "src/configs/config.inteface";
-import { PATH_TO_FILES } from "src/utils";
+import { formidableConfig, PATH_TO_FILES } from "src/utils";
 
 @Injectable()
 export class FilesService {
   constructor(private readonly configService: ConfigService) {}
   getFile(filename: string) {
-    return `Here is your file ${filename}`;
+    const file = createReadStream(path.join(PATH_TO_FILES, `/${filename}`));
+    return new StreamableFile(file);
   }
 
   uploadFileExpres(req, res) {
     const file = formidable({
-      uploadDir: PATH_TO_FILES,
-      maxFileSize: 5e6,
-      filename: () => "1",
+      ...formidableConfig,
+      filename: (name: string, ext: string) => {
+        return `upload_${name}${ext}`;
+      },
     });
-    console.log(file);
-    file.parse(req, (err, fields, files) => {
+    file.parse(req, (err, _, files) => {
       if (err) {
-        res.writeHead(err.httpCode || 400, { "Content-Type": "text/plain" });
-        res.end(String(err));
-        return;
+        throw new HttpException(
+          "Something wrong with upload",
+          HttpStatus.BAD_REQUEST
+        );
       }
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ fields, files }, null, 2));
+      res.send(files);
     });
   }
 
   async uploadFileFastify(req, res) {
     await req.parseMultipart();
     const files = req.files;
-
-    res.end(JSON.stringify({ files }, null, 2));
+    res.send(files);
   }
 
   async uploadFile(req, res) {
