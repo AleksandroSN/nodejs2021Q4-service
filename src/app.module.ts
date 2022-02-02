@@ -1,4 +1,4 @@
-// import * as path from "path";
+import { APP_FILTER, APP_INTERCEPTOR } from "@nestjs/core";
 import { Module, Scope } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
@@ -8,7 +8,7 @@ import { AppService } from "./app.service";
 import {
   AuthModule,
   BoardsModule,
-  // FilesModule,
+  FilesModule,
   TasksModule,
   UsersModule,
 } from "./resources";
@@ -18,7 +18,6 @@ import databaseConfig from "./configs/database.config";
 import { DatabaseConfig } from "./configs/database.config.module";
 import { ConfigLoggerService } from "./logger/logger.service";
 import { ConfigLoggerModule } from "./logger/logger.module";
-import { APP_FILTER, APP_INTERCEPTOR } from "@nestjs/core";
 import { LoggingInterceptor } from "./interceptors/logger.interceptor.service";
 import { LoggerInterceptorModule } from "./interceptors/logger.iterceptor.module";
 import { ExceptionModule } from "./exceptions/exceptions.module";
@@ -48,7 +47,7 @@ import { AllExceptionsFilter } from "./exceptions/all-exception.filter";
     BoardsModule,
     TasksModule,
     AuthModule,
-    // FilesModule,
+    FilesModule,
   ],
   controllers: [AppController],
   providers: [
