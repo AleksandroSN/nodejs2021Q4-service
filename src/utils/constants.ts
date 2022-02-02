@@ -17,4 +17,4 @@ export const PATH_TO_ERROR_LOG_FILE = path.join(
   __dirname,
   "../../logs/error.log"
 );
-export const PATH_TO_FILES = path.join(__dirname, "../../static");
+export const PATH_TO_FILES = path.join(__dirname, "../../upload");

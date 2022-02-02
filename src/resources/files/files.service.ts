@@ -5,7 +5,7 @@ import {
   StreamableFile,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { createReadStream } from "fs";
+import { createReadStream, existsSync, mkdirSync } from "fs";
 import * as formidable from "formidable";
 import * as path from "path";
 import { AppConfig } from "src/configs/config.inteface";
@@ -26,10 +26,13 @@ export class FilesService {
         return `upload_${name}${ext}`;
       },
     });
+    if (!existsSync(PATH_TO_FILES)) {
+      mkdirSync(PATH_TO_FILES, { recursive: true });
+    }
     file.parse(req, (err, _, files) => {
       if (err) {
         throw new HttpException(
-          "Something wrong with upload",
+          `Something wrong with upload ${err}`,
           HttpStatus.BAD_REQUEST
         );
       }
