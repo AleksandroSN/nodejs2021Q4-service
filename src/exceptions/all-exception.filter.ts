@@ -23,7 +23,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
     let responseBody: ExceptionResponse = {
       statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
-      url: "",
+      url: req.url || "",
       exceptionRes: "Something Wrong",
     };
 
@@ -43,9 +43,11 @@ export class AllExceptionsFilter implements ExceptionFilter {
         },
       };
 
-      this.logger.error({ exception, body });
-
+      this.logger.error({ exception, body, host });
       res.status(responseBody.statusCode).send(responseBody);
     }
+
+    this.logger.error({ exception, url: req.url });
+    res.status(responseBody.statusCode).send(exception);
   }
 }

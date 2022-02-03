@@ -10,9 +10,7 @@ import {
   Put,
   UseGuards,
   UseInterceptors,
-  // UsePipes,
 } from "@nestjs/common";
-// import { ValidationUserPipe } from "../../pipes";
 import { JwtGuard } from "../auth/jwt-guard";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { UpdateUserDTO } from "./dto/update-user.dto";
@@ -25,10 +23,8 @@ import { UsersService } from "./users.service";
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
-  // To-DO catch uncaugth and unhandler
   @Get()
   findAll(): Promise<User[]> {
-    // throw new Error("AAAA");
     return this.userService.getAllUsers();
   }
 

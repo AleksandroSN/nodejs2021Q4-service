@@ -2,7 +2,7 @@ import { FastifyAdapter } from "@nestjs/platform-fastify";
 import FastifyFormidable, {
   FastifyFormidableOptions,
 } from "fastify-formidable";
-import { formidableConfig } from "../utils";
+import { formidableConfig } from "../configs";
 
 const formidableOptions: FastifyFormidableOptions = {
   formidable: formidableConfig,

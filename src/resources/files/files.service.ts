@@ -8,8 +8,8 @@ import { ConfigService } from "@nestjs/config";
 import { createReadStream, existsSync, mkdirSync } from "fs";
 import * as formidable from "formidable";
 import * as path from "path";
-import { AppConfig } from "../../configs";
-import { formidableConfig, PATH_TO_FILES } from "../../utils";
+import { AppConfig, formidableConfig } from "../../configs";
+import { PATH_TO_FILES } from "../../utils";
 
 @Injectable()
 export class FilesService {

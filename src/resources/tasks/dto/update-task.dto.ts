@@ -1,12 +1,20 @@
-import { IsString, IsOptional, IsInt } from "class-validator";
+import {
+  IsString,
+  IsOptional,
+  IsInt,
+  IsNotEmpty,
+  MinLength,
+} from "class-validator";
 
 export class UpdateTaskDTO {
   @IsString()
   @IsOptional()
+  @IsNotEmpty()
   id?: string;
 
   @IsString()
   @IsOptional()
+  @MinLength(1)
   title?: string;
 
   @IsInt()
@@ -15,6 +23,7 @@ export class UpdateTaskDTO {
 
   @IsString()
   @IsOptional()
+  @MinLength(1)
   description?: string;
 
   @IsString()

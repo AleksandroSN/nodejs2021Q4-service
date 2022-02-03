@@ -1,17 +1,26 @@
-import { IsInt, IsOptional, IsString } from "class-validator";
+import {
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MinLength,
+} from "class-validator";
 
 export class CreateTaskDTO {
   @IsString()
   @IsOptional()
+  @IsNotEmpty()
   id?: string;
 
   @IsString()
+  @MinLength(1)
   title: string;
 
   @IsInt()
   order: number;
 
   @IsString()
+  @MinLength(1)
   description: string;
 
   @IsString()
