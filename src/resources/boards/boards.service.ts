@@ -1,5 +1,6 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { errorThrower } from "../../exceptions";
 import { TaskRepository } from "../tasks/task.repository";
 import { BoardRepository } from "./board.repository";
 import { Board } from "./boards.entity";
@@ -20,9 +21,11 @@ export class BoardsService {
 
   async findBoard(id: string): Promise<Board> {
     const board = await this.boardsRepository.findBoardById(id);
-    if (!board) {
-      throw new HttpException("Board not found", HttpStatus.NOT_FOUND);
-    }
+    await errorThrower<Board, NotFoundException>(
+      board,
+      "Board not found",
+      NotFoundException
+    );
     return board;
   }
 
@@ -31,18 +34,12 @@ export class BoardsService {
   }
 
   async updateBoard(id: string, dto: UpdateBoardDTO): Promise<Board> {
-    const board = await this.boardsRepository.findBoardById(id);
-    if (!board) {
-      throw new HttpException("Board not found", HttpStatus.NOT_FOUND);
-    }
+    await this.findBoard(id);
     return this.boardsRepository.updateBoard(id, dto);
   }
 
   async deleteBoard(id: string): Promise<string> {
-    const board = await this.boardsRepository.findBoardById(id);
-    if (!board) {
-      throw new HttpException("Board not found", HttpStatus.NOT_FOUND);
-    }
+    await this.findBoard(id);
     await this.taskRepository.deleteAllTask(id);
     const result = await this.boardsRepository.deleteBoard(id);
     if (result.affected > 0) {
