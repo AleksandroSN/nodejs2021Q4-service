@@ -1,12 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { Params } from "nestjs-pino";
-import { AppConfig } from "src/configs/config.inteface";
-import {
-  LOG_LEVELS,
-  PATH_TO_ERROR_LOG_FILE,
-  PATH_TO_LOG_FILE,
-} from "src/utils";
+import { AppConfig } from "../configs";
+import { LOG_LEVELS, PATH_TO_ERROR_LOG_FILE, PATH_TO_LOG_FILE } from "../utils";
 
 @Injectable()
 export class ConfigLoggerService {

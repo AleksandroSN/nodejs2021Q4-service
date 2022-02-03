@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { PATH_TO_ERROR_LOG_FILE } from "src/utils";
+import { PATH_TO_ERROR_LOG_FILE } from "../utils";
 
 export const logUncaughtException = () => {
   process.on("uncaughtException", (err) => {

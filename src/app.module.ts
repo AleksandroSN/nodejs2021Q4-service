@@ -1,5 +1,5 @@
-import { APP_FILTER, APP_INTERCEPTOR } from "@nestjs/core";
-import { Module, Scope } from "@nestjs/common";
+import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from "@nestjs/core";
+import { Module, Scope, ValidationPipe } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { LoggerModule } from "nestjs-pino";
@@ -12,17 +12,10 @@ import {
   TasksModule,
   UsersModule,
 } from "./resources";
-
-import appConfig from "./configs/appConfig";
-import databaseConfig from "./configs/database.config";
-import { DatabaseConfig } from "./configs/database.config.module";
-import { ConfigLoggerService } from "./logger/logger.service";
-import { ConfigLoggerModule } from "./logger/logger.module";
-import { LoggingInterceptor } from "./interceptors/logger.interceptor.service";
-import { LoggerInterceptorModule } from "./interceptors/logger.iterceptor.module";
-import { ExceptionModule } from "./exceptions/exceptions.module";
-import { AllExceptionsFilter } from "./exceptions/all-exception.filter";
-
+import { ExceptionModule, AllExceptionsFilter } from "./exceptions";
+import { LoggerInterceptorModule, LoggingInterceptor } from "./interceptors";
+import { ConfigLoggerModule, ConfigLoggerService } from "./logger";
+import { appConfig, databaseConfig, DatabaseConfigFactory } from "./configs";
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -32,7 +25,7 @@ import { AllExceptionsFilter } from "./exceptions/all-exception.filter";
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useClass: DatabaseConfig,
+      useClass: DatabaseConfigFactory,
     }),
     LoggerModule.forRootAsync({
       imports: [ConfigLoggerModule],
@@ -60,6 +53,10 @@ import { AllExceptionsFilter } from "./exceptions/all-exception.filter";
     {
       provide: APP_FILTER,
       useClass: AllExceptionsFilter,
+    },
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe,
     },
   ],
 })

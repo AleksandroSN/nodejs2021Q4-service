@@ -1,9 +1,5 @@
 import { Params } from "nestjs-pino";
-import {
-  LOG_LEVELS,
-  PATH_TO_ERROR_LOG_FILE,
-  PATH_TO_LOG_FILE,
-} from "src/utils";
+import { LOG_LEVELS, PATH_TO_ERROR_LOG_FILE, PATH_TO_LOG_FILE } from "../utils";
 
 export const pinoConfig = async (logLevel: string): Promise<Params> => {
   return {

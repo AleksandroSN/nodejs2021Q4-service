@@ -10,9 +10,9 @@ import {
   Put,
   UseGuards,
   UseInterceptors,
-  UsePipes,
+  // UsePipes,
 } from "@nestjs/common";
-import { ValidationUserPipe } from "../../pipes";
+// import { ValidationUserPipe } from "../../pipes";
 import { JwtGuard } from "../auth/jwt-guard";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { UpdateUserDTO } from "./dto/update-user.dto";
@@ -36,7 +36,7 @@ export class UsersController {
   }
 
   @Post()
-  @UsePipes(ValidationUserPipe)
+  // @UsePipes(ValidationUserPipe)
   addOne(@Body() newUser: CreateUserDTO): Promise<User> {
     return this.userService.addUser(newUser);
   }
