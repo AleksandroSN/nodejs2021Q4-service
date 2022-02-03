@@ -3,11 +3,11 @@ import { ConfigService } from "@nestjs/config";
 import { Logger } from "nestjs-pino";
 import { AppModule } from "./app.module";
 import { generateAdapter } from "./server";
-import { logUncaughtException, logUnhandledRejection } from "./logger";
+// import { logUncaughtException, logUnhandledRejection } from "./logger";
 import type { AppConfig } from "./configs";
 
-logUncaughtException();
-logUnhandledRejection();
+// logUncaughtException();
+// logUnhandledRejection();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, generateAdapter());

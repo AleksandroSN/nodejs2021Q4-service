@@ -25,8 +25,10 @@ import { UsersService } from "./users.service";
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
+  // To-DO catch uncaugth and unhandler
   @Get()
   findAll(): Promise<User[]> {
+    // throw new Error("AAAA");
     return this.userService.getAllUsers();
   }
 
