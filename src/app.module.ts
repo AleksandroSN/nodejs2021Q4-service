@@ -56,7 +56,10 @@ import { appConfig, databaseConfig, DatabaseConfigFactory } from "./configs";
     },
     {
       provide: APP_PIPE,
-      useClass: ValidationPipe,
+      useValue: new ValidationPipe({
+        whitelist: true,
+        forbidNonWhitelisted: true,
+      }),
     },
   ],
 })

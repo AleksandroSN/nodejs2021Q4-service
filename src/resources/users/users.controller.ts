@@ -36,14 +36,11 @@ export class UsersController {
   }
 
   @Post()
-  // @UsePipes(ValidationUserPipe)
   addOne(@Body() newUser: CreateUserDTO): Promise<User> {
     return this.userService.addUser(newUser);
   }
 
   @Put(":id")
-  // TODO validation update user
-  // @UsePipes(ValidationUserPipe)
   updateOne(
     @Body() updateUser: UpdateUserDTO,
     @Param("id", ParseUUIDPipe) id: string

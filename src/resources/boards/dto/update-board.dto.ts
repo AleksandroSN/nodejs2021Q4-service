@@ -1,9 +1,16 @@
-import { IsString } from "class-validator";
+import { IsArray, IsOptional, IsString } from "class-validator";
 import { ColumnModel } from "../types";
 
 export class UpdateBoardDTO {
   @IsString()
-  title: string;
+  @IsOptional()
+  id?: string;
 
-  columns: ColumnModel[];
+  @IsString()
+  @IsOptional()
+  title?: string;
+
+  @IsArray()
+  @IsOptional()
+  columns?: ColumnModel[];
 }

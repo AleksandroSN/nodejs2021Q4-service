@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Post,
   Put,
   UseGuards,
@@ -25,14 +26,14 @@ export class TasksController {
   }
 
   @Get(":taskId")
-  findOne(@Param("taskId") taskId: string): Promise<Task> {
+  findOne(@Param("taskId", ParseUUIDPipe) taskId: string): Promise<Task> {
     return this.taskService.getTask(taskId);
   }
 
   @Post()
   addOne(
     @Body() dto: CreateTaskDTO,
-    @Param("boardId") boardId: string
+    @Param("boardId", ParseUUIDPipe) boardId: string
   ): Promise<Task> {
     return this.taskService.addTask(dto, boardId);
   }
@@ -40,13 +41,13 @@ export class TasksController {
   @Put(":taskId")
   updateOne(
     @Body() dto: UpdateTaskDTO,
-    @Param("taskId") taskId: string
+    @Param("taskId", ParseUUIDPipe) taskId: string
   ): Promise<Task> {
     return this.taskService.updateTask(taskId, dto);
   }
 
   @Delete(":taskId")
-  deleteOne(@Param("taskId") taskId: string): Promise<string> {
+  deleteOne(@Param("taskId", ParseUUIDPipe) taskId: string): Promise<string> {
     return this.taskService.deleteTask(taskId);
   }
 }

@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Post,
   Put,
   UseGuards,
@@ -25,7 +26,7 @@ export class BoardsController {
   }
 
   @Get(":boardid")
-  findOne(@Param("boardid") id: string): Promise<Board> {
+  findOne(@Param("boardid", ParseUUIDPipe) id: string): Promise<Board> {
     return this.boardsService.findBoard(id);
   }
 
@@ -37,13 +38,13 @@ export class BoardsController {
   @Put(":boardid")
   updateOne(
     @Body() dto: UpdateBoardDTO,
-    @Param("boardid") id: string
+    @Param("boardid", ParseUUIDPipe) id: string
   ): Promise<Board> {
     return this.boardsService.updateBoard(id, dto);
   }
 
   @Delete(":boardid")
-  deleteOne(@Param("boardid") id: string): Promise<string> {
+  deleteOne(@Param("boardid", ParseUUIDPipe) id: string): Promise<string> {
     return this.boardsService.deleteBoard(id);
   }
 }

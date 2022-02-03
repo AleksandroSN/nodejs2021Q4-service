@@ -1,9 +1,31 @@
+import { IsString, IsOptional, IsInt } from "class-validator";
+
 export class UpdateTaskDTO {
-  id: string;
-  title: string;
-  order: number;
-  description: string;
-  userId: string | null;
-  boardId: string | null;
-  columnId: string | null;
+  @IsString()
+  @IsOptional()
+  id?: string;
+
+  @IsString()
+  @IsOptional()
+  title?: string;
+
+  @IsInt()
+  @IsOptional()
+  order?: number;
+
+  @IsString()
+  @IsOptional()
+  description?: string;
+
+  @IsString()
+  @IsOptional()
+  userId?: string | null;
+
+  @IsString()
+  @IsOptional()
+  boardId?: string | null;
+
+  @IsString()
+  @IsOptional()
+  columnId?: string | null;
 }

@@ -2,6 +2,10 @@ import { IsOptional, IsString } from "class-validator";
 export class UpdateUserDTO {
   @IsString()
   @IsOptional()
+  id?: string;
+
+  @IsString()
+  @IsOptional()
   name?: string;
 
   @IsString()
