@@ -24,7 +24,14 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository. <br>
+[Docker](https://www.docker.com/get-started) download Docker
+
+## Downloading
+
+```
+git clone {repository URL}
+```
 
 ## Installation
 
@@ -45,58 +52,17 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
-
-<hr>
-
-# OLD DESCRIPTION BELOW
-
-<hr>
-
-## RS School REST service
-
-## Prerequisites
-
-- Git - [Download & Install Git](https://git-scm.com/downloads).
-- Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
-- Docker - [Download and Install Docker](https://www.docker.com/get-started)
-
-## Downloading
+## Lint
 
 ```
-git clone {repository URL}
+npm run lint
 ```
 
-## Installing NPM modules
+## FileUpload
 
-```
-npm install
-```
+To upload file use route : "/files". <br>
+Restrictions: 5MB to file. <br>
+Multiply upload support: Yes.
 
 ## Docker
 
@@ -189,56 +155,87 @@ levels logs :
 
 if level log === 0, all errors logs write in errorLog.log
 
-## Running application
+## Test
 
-```
-npm start:dev
-```
+```bash
+# unit tests
+$ npm run test
 
-After starting the app on port (4000 as default) you can open
-in your browser OpenAPI documentation by typing http://localhost:4000/docs/.
-For more information about OpenAPI/Swagger please visit https://swagger.io/.
+# e2e tests
+$ npm run test:e2e
 
-## Testing
-
-After application running open new terminal and enter:
-
-To run all tests without authorization
-
-```
-npm test
+# test coverage
+$ npm run test:cov
 ```
 
-To run only one of all test suites (users, boards or tasks)
+## Benchmark
+
+In project used [Artillery](https://www.artillery.io/)
+
+# Express
 
 ```
-npm test <suite name>
+http.codes.200: ................................................................ 5000
+http.codes.201: ................................................................ 4000
+http.request_rate: ............................................................. 80/sec
+http.requests: ................................................................. 9000
+http.response_time:
+  min: ......................................................................... 4
+  max: ......................................................................... 5565
+  median: ...................................................................... 982.6
+  p95: ......................................................................... 3828.5
+  p99: ......................................................................... 5065.6
+http.responses: ................................................................ 9000
+vusers.completed: .............................................................. 1000
+vusers.created: ................................................................ 1000
+vusers.created_by_name.NestJS API: ............................................. 1000
+vusers.session_length:
+  min: ......................................................................... 689.9
+  max: ......................................................................... 21694.1
+  median: ...................................................................... 11050.8
+  p95: ......................................................................... 20958.1
+  p99: ......................................................................... 21381.5
 ```
 
-To run all test with authorization
+![Express_benchmark](./load_test/express_report.png)
+
+# Fastify
 
 ```
-npm run test:auth
+http.codes.200: ................................................................ 5000
+http.codes.201: ................................................................ 4000
+http.request_rate: ............................................................. 83/sec
+http.requests: ................................................................. 9000
+http.response_time:
+  min: ......................................................................... 1
+  max: ......................................................................... 4129
+  median: ...................................................................... 219.2
+  p95: ......................................................................... 1826.6
+  p99: ......................................................................... 3464.1
+http.responses: ................................................................ 9000
+vusers.completed: .............................................................. 1000
+vusers.created: ................................................................ 1000
+vusers.created_by_name.NestJS API: ............................................. 1000
+vusers.session_length:
+  min: ......................................................................... 401.9
+  max: ......................................................................... 15226
+  median: ...................................................................... 1587.9
+  p95: ......................................................................... 14048.5
+  p99: ......................................................................... 14917.2
 ```
 
-To run only specific test suite with authorization (users, boards or tasks)
+![Fastify_benchmark](./load_test/fastify_report.png)
 
-```
-npm run test:auth <suite name>
-```
+## Support
 
-## Development
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-If you're using VSCode, you can get a better developer experience from integration with [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) extensions.
+## Stay in touch
 
-### Auto-fix and format
+- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-```
-npm run lint
-```
+## License
 
-### Debugging in VSCode
-
-Press <kbd>F5</kbd> to debug.
-
-For more information, visit: https://code.visualstudio.com/docs/editor/debugging
+Nest is [MIT licensed](LICENSE).
