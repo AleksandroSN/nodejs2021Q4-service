@@ -1,0 +1,67 @@
+config:
+  target: "http://127.0.0.1:4000"
+  phases:
+    - duration: 100
+      arrivalRate: 10
+      name: First Phase
+scenarios:
+  - name: "NestJS API"
+    flow:
+      - post:
+          url: "/login"
+          json:
+            login: "admin"
+            password: "admin"
+          capture:
+            - json: "$.token"
+              as: "token"
+      - get:
+          url: "/users"
+          headers:
+            authorization: "Bearer {{ token }}"
+      - post:
+          url: "/users"
+          json:
+            login: "H@ckEr"
+            password: "BcvVDcs"
+          capture:
+            - json: "$.id"
+              as: "id"
+          headers:
+            authorization: "Bearer {{ token }}"
+      - put:
+          url: "/users/{{ id }}"
+          json:
+            login: "H@ckEr"
+            password: "QQQQQQ"
+          capture:
+            - json: "$.id"
+              as: "idUpdated"
+          headers:
+            authorization: "Bearer {{ token }}"
+      - get:
+          url: "/users/{{ idUpdated }}"
+          headers:
+            authorization: "Bearer {{ token }}"
+      - post:
+          url: "/users"
+          json:
+            login: "admin"
+            password: "admin"
+          headers:
+            authorization: "Bearer {{ token }}"
+      - post:
+          url: "/users"
+          json:
+            login: "admin"
+            password: "admin"
+          headers:
+            authorization: "Bearer {{ token }}"
+      - delete:
+          url: "/users/{{ id }}"
+          headers:
+            authorization: "Bearer {{ token }}"
+      - get:
+          url: "/users"
+          headers:
+            authorization: "Bearer {{ token }}"

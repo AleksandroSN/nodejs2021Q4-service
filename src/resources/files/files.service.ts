@@ -19,6 +19,7 @@ export class FilesService {
     return new StreamableFile(file);
   }
 
+  // TODO add to promise
   uploadFileExpres(req, res) {
     const file = formidable({
       ...formidableConfig,
