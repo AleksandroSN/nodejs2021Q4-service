@@ -26,9 +26,9 @@ import { UpdateUserDTO } from "./dto/update-user.dto";
 import { User } from "./users.entity";
 import { UsersService } from "./users.service";
 
+@Controller("users")
 @ApiTags("Users")
 @ApiBearerAuth()
-@Controller("users")
 @UseGuards(JwtGuard)
 @UseInterceptors(ClassSerializerInterceptor)
 export class UsersController {
