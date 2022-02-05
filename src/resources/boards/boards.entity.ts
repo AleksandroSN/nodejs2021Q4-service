@@ -29,7 +29,7 @@ export class Board {
       { title: "Backlog", order: 1 },
       { title: "Sprint", order: 2 },
     ]),
-    description: "Something name",
+    description: "Columns for Board",
   })
   @Column("simple-json")
   columns: ColumnModel[];

@@ -70,7 +70,7 @@ export class BoardsController {
   @ApiParam({ name: "boardid", description: "string in UUID format" })
   @ApiResponse({
     status: 200,
-    type: "User with id 5e5f848d-48b5-49ee-9fd3-933ea34bba3b is deleted",
+    type: "Board with id 5e5f848d-48b5-49ee-9fd3-933ea34bba3b is deleted",
     description: "Response with next text: Board with id UUID is deleted",
   })
   deleteOne(@Param("boardid", ParseUUIDPipe) id: string): Promise<string> {
