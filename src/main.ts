@@ -16,18 +16,20 @@ async function bootstrap() {
   });
   const logger = app.get(Logger);
   const configService = app.get(ConfigService);
+  const { PORT, BASE_HOST } = configService.get<AppConfig>("appConfig");
 
   app.useLogger(logger);
+
   const config = new DocumentBuilder()
     .setTitle("NestJS API")
     .setDescription("Let's try to create a competitor for Trello!")
+    .addServer(`http://${BASE_HOST}:${PORT}`)
     .setVersion("1.0.0")
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("/docs", app, document);
 
-  const { PORT, BASE_HOST } = configService.get<AppConfig>("appConfig");
   await app.listen(PORT, BASE_HOST);
   process.stdout.write(`START at http://${BASE_HOST}:${PORT} \n`);
 }
