@@ -27,7 +27,8 @@ export class FilesController {
   @ApiOperation({ summary: "Upload to API one or many files" })
   @ApiConsumes("multipart/form-data")
   @ApiBody({
-    description: "List of files. RESTRICTION: 5MB",
+    description:
+      "List of files. RESTRICTION: TotalSize 5MB on batch of uploades files",
     type: FilesUploadDto,
   })
   @ApiResponse({ status: 201, type: [FileUploadResponseDTO] })

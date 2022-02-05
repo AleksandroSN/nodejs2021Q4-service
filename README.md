@@ -52,17 +52,52 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Swagger
+
+api description Available by link:
+
+```
+scheme://hostname:port/docs
+```
+
+## Endpoints
+
+- List endpoints
+  - `User` (`/users` route)
+    - `GET /users` - get all users (remove password from response)
+    - `GET /users/:userId` - get the user by id (ex. “/users/123”) (remove password from response)
+    - `POST /users` - create user
+    - `PUT /users/:userId` - update user
+    - `DELETE /users/:userId` - delete user
+  - `Board` (`/boards` route)
+    - `GET /boards` - get all boards
+    - `GET /boards/:boardId` - get the board by id
+    - `POST /boards` - create board
+    - `PUT /boards/:boardId` - update board
+    - `DELETE /boards/:boardId` - delete board and all tasks
+  - `Task` (`/boards/:boardId/tasks` route)
+    - `GET boards/:boardId/tasks` - get all tasks
+    - `GET boards/:boardId/tasks/:taskId` - get the task by id
+    - `POST boards/:boardId/tasks` - create task
+    - `PUT boards/:boardId/tasks/:taskId` - update task
+    - `DELETE boards/:boardId/tasks/:taskId` - delete task
+  - `Files` (`/files` route)
+    - `GET files/:filename` - get one file
+    - `POST files` - upload one or many files. RESTRICTION: TotalSize 5MB on batch of uploades files
+  - `Authentication` (`/login` route)
+    - `POST login` - authenticate in APP. Response JWT-token
+
+## FileUpload
+
+To upload file use route : "/files". <br>
+Restrictions: TotalSize 5MB on batch of uploades files. <br>
+Multiply upload support: Yes.
+
 ## Lint
 
 ```
 npm run lint
 ```
-
-## FileUpload
-
-To upload file use route : "/files". <br>
-Restrictions: 5MB to file. <br>
-Multiply upload support: Yes.
 
 ## Docker
 

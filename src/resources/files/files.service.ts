@@ -10,6 +10,8 @@ import * as formidable from "formidable";
 import * as path from "path";
 import { AppConfig, formidableConfig } from "../../configs";
 import { PATH_TO_FILES } from "../../utils";
+import { IncomingMessage } from "http";
+import { Response } from "express";
 
 @Injectable()
 export class FilesService {
@@ -19,8 +21,7 @@ export class FilesService {
     return new StreamableFile(file);
   }
 
-  // TODO add to promise
-  uploadFileExpres(req, res) {
+  async uploadFileExpres(req: IncomingMessage, res: Response) {
     const file = formidable({
       ...formidableConfig,
       filename: (name: string, ext: string) => {
@@ -30,15 +31,24 @@ export class FilesService {
     if (!existsSync(PATH_TO_FILES)) {
       mkdirSync(PATH_TO_FILES, { recursive: true });
     }
-    file.parse(req, (err, _, files) => {
-      if (err) {
+    return new Promise((resolve, reject) => {
+      file.parse(req, (err, _, files) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(files);
+      });
+    })
+      .then((files) => {
+        res.send(files);
+        return;
+      })
+      .catch((err) => {
         throw new HttpException(
           `Something wrong with upload ${err}`,
           HttpStatus.BAD_REQUEST
         );
-      }
-      res.send(files);
-    });
+      });
   }
 
   async uploadFileFastify(req, res) {
@@ -53,6 +63,6 @@ export class FilesService {
     if (USE_FASTIFY === "true") {
       return await this.uploadFileFastify(req, res);
     }
-    return this.uploadFileExpres(req, res);
+    return await this.uploadFileExpres(req, res);
   }
 }

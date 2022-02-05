@@ -45,9 +45,11 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
       this.logger.error({ exception, body });
       res.status(responseBody.statusCode).send(responseBody);
+      return;
     }
 
     this.logger.error({ exception, url: req.url });
     res.status(responseBody.statusCode).send(exception);
+    return;
   }
 }
