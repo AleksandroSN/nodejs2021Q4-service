@@ -91,6 +91,19 @@ For shutdown container use
 docker-compose down
 ```
 
+App can be switched between Express and Fastify.<br>
+To do this :
+
+1. docker-compose down node-app
+2. change env USE_FASTIFY
+3. docker-compose up -d node-app
+
+```
+ environment:
+      TYPEORM_HOST: postgres
+      USE_FASTIFY: false
+```
+
 ## PostgreSQL and pgAdmin
 
 `DB` : fastify-db <br>

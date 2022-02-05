@@ -12,11 +12,15 @@ services:
       - type: volume
         source: node_app_logs
         target: /logs
+      - type: volume
+        source: node_app_upload_files
+        target: /upload
       - type: bind
         source: ./src
         target: /src
     environment:
-      POSTGRES_HOST: postgres
+      TYPEORM_HOST: postgres
+      USE_FASTIFY: false
     ports:
       - "${PORT}:${PORT}"
     restart: always
@@ -70,4 +74,5 @@ networks:
 volumes:
   postgresDB:
   node_app_logs:
+  node_app_upload_files:
   pgadmin:

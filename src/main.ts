@@ -10,13 +10,16 @@ logUncaughtException();
 logUnhandledRejection();
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, generateAdapter());
+  const app = await NestFactory.create(AppModule, generateAdapter(), {
+    logger: false,
+  });
   const logger = app.get(Logger);
   const configService = app.get(ConfigService);
-
   app.useLogger(logger);
 
   const { PORT, BASE_HOST } = configService.get<AppConfig>("appConfig");
+
   await app.listen(PORT, BASE_HOST);
+  process.stdout.write(`START at http://${BASE_HOST}:${PORT} \n`);
 }
 bootstrap();

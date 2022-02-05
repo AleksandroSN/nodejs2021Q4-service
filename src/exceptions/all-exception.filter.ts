@@ -43,7 +43,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
         },
       };
 
-      this.logger.error({ exception, body, host });
+      this.logger.error({ exception, body });
       res.status(responseBody.statusCode).send(responseBody);
     }
 
