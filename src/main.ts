@@ -5,6 +5,7 @@ import { AppModule } from "./app.module";
 import { generateAdapter } from "./server";
 import { logUncaughtException, logUnhandledRejection } from "./logger";
 import type { AppConfig } from "./configs";
+import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 
 logUncaughtException();
 logUnhandledRejection();
@@ -15,10 +16,18 @@ async function bootstrap() {
   });
   const logger = app.get(Logger);
   const configService = app.get(ConfigService);
+
   app.useLogger(logger);
+  const config = new DocumentBuilder()
+    .setTitle("NestJS API")
+    .setDescription("Let's try to create a competitor for Trello!")
+    .setVersion("1.0.0")
+    .addBearerAuth()
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup("/docs", app, document);
 
   const { PORT, BASE_HOST } = configService.get<AppConfig>("appConfig");
-
   await app.listen(PORT, BASE_HOST);
   process.stdout.write(`START at http://${BASE_HOST}:${PORT} \n`);
 }
