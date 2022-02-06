@@ -1,4 +1,10 @@
-import { DeleteResult, EntityRepository, Repository } from "typeorm";
+import { ConflictException } from "@nestjs/common";
+import {
+  DeleteResult,
+  EntityRepository,
+  QueryFailedError,
+  Repository,
+} from "typeorm";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { UpdateUserDTO } from "./dto/update-user.dto";
 import { User } from "./users.entity";
@@ -19,7 +25,13 @@ export class UserRepository extends Repository<User> {
 
   async createUser(dto: CreateUserDTO): Promise<User> {
     const newUser = new User(dto);
-    return await this.save(newUser);
+    try {
+      const user = await this.save(newUser);
+      return user;
+    } catch (error) {
+      const typeORMError = error as QueryFailedError;
+      throw new ConflictException(typeORMError.driverError);
+    }
   }
 
   async updateUser(id: string, dto: UpdateUserDTO): Promise<User> {

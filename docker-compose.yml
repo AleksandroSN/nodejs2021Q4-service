@@ -20,7 +20,7 @@ services:
         target: /src
     environment:
       TYPEORM_HOST: postgres
-      USE_FASTIFY: false
+      USE_FASTIFY: true
     ports:
       - "${PORT}:${PORT}"
     restart: always

@@ -15,8 +15,8 @@ export default {
   synchronize: process.env.TYPEORM_SYNCHRONIZE === "true",
   migrationsRun: process.env.TYPEORM_MIGRATIONS_RUN === "true",
   dropSchema: process.env.TYPEORM_DROP_SCHEMA === "true",
-  entities: [process.env.TYPEORM_ENTITIES_DIR],
-  migrations: [process.env.TYPEORM_MIGRATIONS_DIR],
+  entities: [process.env.TYPEORM_ENTITIES],
+  migrations: [process.env.TYPEORM_MIGRATIONS],
   cli: {
     entitiesDir: process.env.TYPEORM_ENTITIES_DIR,
     migrationsDir: process.env.TYPEORM_MIGRATIONS_DIR,

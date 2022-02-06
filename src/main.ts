@@ -11,9 +11,7 @@ logUncaughtException();
 logUnhandledRejection();
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, generateAdapter(), {
-    logger: false,
-  });
+  const app = await NestFactory.create(AppModule, generateAdapter());
   const logger = app.get(Logger);
   const configService = app.get(ConfigService);
   const { PORT, BASE_HOST } = configService.get<AppConfig>("appConfig");
