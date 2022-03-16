@@ -12,15 +12,15 @@ import { User } from "./users.entity";
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
   async findAllUsers(): Promise<User[]> {
-    return await this.find();
+    return this.find();
   }
 
   async findUserById(id: string): Promise<User> {
-    return await this.findOne(id);
+    return this.findOne(id);
   }
 
   async findUserByLogin(login: string): Promise<User> {
-    return await this.findOne({ login });
+    return this.findOne({ login });
   }
 
   async createUser(dto: CreateUserDTO): Promise<User> {
@@ -38,10 +38,10 @@ export class UserRepository extends Repository<User> {
     const user = await this.findOne(id);
     const updatedUser = { ...user, ...dto } as User;
     const userWithoutPass = new User(updatedUser);
-    return await this.save(userWithoutPass);
+    return this.save(userWithoutPass);
   }
 
   async deleteUser(id: string): Promise<DeleteResult> {
-    return await this.delete(id);
+    return this.delete(id);
   }
 }

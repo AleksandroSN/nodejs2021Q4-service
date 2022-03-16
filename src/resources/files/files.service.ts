@@ -61,8 +61,8 @@ export class FilesService {
     const { USE_FASTIFY } = this.configService.get<AppConfig>("appConfig");
 
     if (USE_FASTIFY === "true") {
-      return await this.uploadFileFastify(req, res);
+      return this.uploadFileFastify(req, res);
     }
-    return await this.uploadFileExpres(req, res);
+    return this.uploadFileExpres(req, res);
   }
 }

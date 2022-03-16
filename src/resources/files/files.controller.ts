@@ -33,7 +33,7 @@ export class FilesController {
   })
   @ApiResponse({ status: 201, type: [FileUploadResponseDTO] })
   async uploadFile(@Req() req, @Res() res) {
-    return await this.filesSerivice.uploadFile(req, res);
+    return this.filesSerivice.uploadFile(req, res);
   }
 
   @Get(":filename")

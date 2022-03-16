@@ -6,24 +6,24 @@ import { UpdateBoardDTO } from "./dto/update-board.dto";
 @EntityRepository(Board)
 export class BoardRepository extends Repository<Board> {
   async findAllBoards(): Promise<Board[]> {
-    return await this.find();
+    return this.find();
   }
 
   async findBoardById(id: string): Promise<Board> {
-    return await this.findOne(id);
+    return this.findOne(id);
   }
 
   async createBoard(dto: CreateBoardDTO): Promise<Board> {
-    return await this.save(dto);
+    return this.save(dto);
   }
 
   async updateBoard(id: string, dto: UpdateBoardDTO): Promise<Board> {
     const board = await this.findOne(id);
     const updatedBoard = { ...board, ...dto } as Board;
-    return await this.save(updatedBoard);
+    return this.save(updatedBoard);
   }
 
   async deleteBoard(id: string): Promise<DeleteResult> {
-    return await this.delete(id);
+    return this.delete(id);
   }
 }

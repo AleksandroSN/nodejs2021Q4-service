@@ -6,26 +6,26 @@ import { Task } from "./tasks.entity";
 @EntityRepository(Task)
 export class TaskRepository extends Repository<Task> {
   async findAllTasks(): Promise<Task[]> {
-    return await this.find();
+    return this.find();
   }
 
   async findTaskById(id: string): Promise<Task> {
-    return await this.findOne(id);
+    return this.findOne(id);
   }
 
   async createTask(dto: CreateTaskDTO, boardId: string): Promise<Task> {
     const taskWithBoardId = { ...dto, ...{ boardId } } as Task;
-    return await this.save(taskWithBoardId);
+    return this.save(taskWithBoardId);
   }
 
   async updateTask(id: string, dto: UpdateTaskDTO): Promise<Task> {
     const task = await this.findOne(id);
     const updatedTask = { ...task, ...dto } as Task;
-    return await this.save(updatedTask);
+    return this.save(updatedTask);
   }
 
   async deleteTask(id: string): Promise<DeleteResult> {
-    return await this.delete(id);
+    return this.delete(id);
   }
 
   async deleteAllTask(boardId: string): Promise<Task[]> {

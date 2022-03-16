@@ -25,7 +25,7 @@ export class AuthService {
       userIsExist.password
     );
     if (comparePass) {
-      return await this.generateToken(userIsExist);
+      return this.generateToken(userIsExist);
     }
     throw new UnauthorizedException("Bad combination user/password");
   }
