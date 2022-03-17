@@ -1,0 +1,1 @@
+export { ValidationUserPipe } from "./validationUserPipe";

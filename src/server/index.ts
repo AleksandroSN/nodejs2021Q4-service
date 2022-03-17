@@ -1,0 +1,1 @@
+export { generateAdapter } from "./generateAdapter";

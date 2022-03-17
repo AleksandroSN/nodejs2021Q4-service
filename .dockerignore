@@ -1,0 +1,11 @@
+node_modules
+oldProject
+.git
+.vscode
+.github
+.eslintignore
+.eslintrc.js
+.prettierrc
+.gitignore
+*.log
+*.md

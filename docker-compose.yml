@@ -1,0 +1,78 @@
+version: "3.9"
+
+services:
+  node-app:
+    image: aleksandrosn/nodejs2021q4-service:deploy-node
+    container_name: node-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    volumes:
+      - type: volume
+        source: node_app_logs
+        target: /logs
+      - type: volume
+        source: node_app_upload_files
+        target: /upload
+      - type: bind
+        source: ./src
+        target: /src
+    environment:
+      TYPEORM_HOST: postgres
+      USE_FASTIFY: true
+    ports:
+      - "${PORT}:${PORT}"
+    restart: always
+    networks:
+      - node-postgres
+    depends_on:
+      - postgres
+    command: npm run start:dev
+  postgres:
+    image: aleksandrosn/nodejs2021q4-service:deploy-postgres
+    container_name: postgres
+    build:
+      context: .
+      dockerfile: DockerfileDB
+    ports:
+      - "${TYPEORM_PORT}:${TYPEORM_PORT}"
+    environment:
+      - PGPORT=${TYPEORM_PORT}
+      - POSTGRES_USER=${TYPEORM_USERNAME}
+      - POSTGRES_PASSWORD=${TYPEORM_PASSWORD}
+      - POSTGRES_DB=${TYPEORM_DATABASE}
+    volumes:
+      - type: volume
+        source: postgresDB
+        target: /var/lib/postgresql/data
+    networks:
+      - node-postgres
+    restart: always
+    depends_on:
+      - pgadmin
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+      - PGADMIN_PORT=${PGADMIN_PORT}
+    ports:
+      - "${PGADMIN_PORT}:80"
+    networks:
+      - node-postgres
+    volumes:
+      - type: volume
+        source: pgadmin
+        target: /var/lib/pgadmin
+
+networks:
+  node-postgres:
+    driver: bridge
+volumes:
+  postgresDB:
+  node_app_logs:
+  node_app_upload_files:
+  pgadmin:
